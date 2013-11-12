@@ -163,21 +163,14 @@
         
         switch ([indexPath section]) {
             case MUSCLE_SECTION:
-                //muscleGroupDict = [musclePlistArray objectAtIndex:indexPath.row];
-                //selectedItem = muscleGroupDict;//[muscleGroupDict valueForKey:@"exercises"];
                 selectedGroup = [categoryArray1 objectAtIndex:indexPath.row];
                 break;
             case CARDIO_SECTION:
-                //cardioGroupDict = [cardioPlistArray objectAtIndex:indexPath.row];
-                //selectedItem = cardioGroupDict;//[muscleGroupDict valueForKey:@"exercises"];
                 selectedGroup = [categoryArray2 objectAtIndex:indexPath.row];
                 break;
             default:
                 break;
         }
-        
-        // pass the array of exercises
-        //[segue destinationViewController].groupDict = selectedItem;
         
         // pass the string
         ExerciseViewController *exerciseViewController = [segue destinationViewController];
