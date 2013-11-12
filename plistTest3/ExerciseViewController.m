@@ -16,7 +16,7 @@
 
 @implementation ExerciseViewController
 
-@synthesize groupDict, exerciseArray;
+@synthesize exerciseArray;
 @synthesize groupName;
 
 - (id)initWithStyle:(UITableViewStyle)style
@@ -133,15 +133,14 @@
         
         NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
         
-        // Send muscleGroupDict to the next table view screen
         NSString *selectedItem;
         selectedItem = [exerciseArray objectAtIndex:indexPath.row];
         
-        // pass the string
-        ExerciseEntryViewController *detailViewController = [segue destinationViewController];
+        ExerciseEntryViewController *exerciseEntryViewController = [segue destinationViewController];
         //NSIndexPath *myIndexPath = [self.tableView indexPathForSelectedRow];
         
-        detailViewController.exerciseName = selectedItem;
+        // Pass the exercise name to the next screen
+        exerciseEntryViewController.exerciseName = selectedItem;
     }
 }
 
