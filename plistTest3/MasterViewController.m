@@ -35,12 +35,6 @@
     // Load the property list   
     NSString *plistPath = [[NSBundle mainBundle] pathForResource:@"data" ofType:@"plist"];
     NSArray *rootPlistArray = [[NSArray alloc] initWithContentsOfFile:plistPath];
-
-    // The plist has 2 arrays, one containing muscles, one containing cardio
-    //muscleGroupsArray = rootArray [0];
-    //cardioGroupsArray = rootArray [1];
-    //musclePlistArray = [rootPlistArray objectAtIndex:0];
-    //cardioPlistArray = [rootPlistArray objectAtIndex:1];
     
     [self populateCategories];
     
