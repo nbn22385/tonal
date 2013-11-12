@@ -30,9 +30,6 @@
 
 - (void)viewDidLoad
 {
-    // get muscle name from dict
-    //self.navigationItem.title = [groupDict objectForKey:@"group"];
-    //exerciseArray = [groupDict objectForKey:@"exercises"];
     self.navigationItem.title = groupName;
     
     [self populateExercises];
