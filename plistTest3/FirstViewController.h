@@ -13,6 +13,9 @@
 }
 
 @property (strong, nonatomic) id detailItem;
+@property (strong, nonatomic) IBOutlet UIButton *nwButton;
+@property (strong, nonatomic) IBOutlet UIButton *continueButton;
+@property (strong, nonatomic) IBOutlet UILabel *infoLabel;
 
 - (IBAction)startButton:(id)sender;
 @property (weak, nonatomic) IBOutlet UILabel *detailDescriptionLabel;

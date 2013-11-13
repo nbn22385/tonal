@@ -10,11 +10,11 @@
 		9E5E8538182200010064B44E /* FMDatabase.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E5E8535182200010064B44E /* FMDatabase.m */; };
 		9E5E8539182200010064B44E /* FMResultSet.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E5E8537182200010064B44E /* FMResultSet.m */; };
 		9E5E853C182200440064B44E /* FMDatabasePool.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E5E853B182200440064B44E /* FMDatabasePool.m */; };
-		9E5E853F182745040064B44E /* test.db in Resources */ = {isa = PBXBuildFile; fileRef = 9E5E853D1826EFF50064B44E /* test.db */; };
 		9E5E854318274A2F0064B44E /* FMDBDataAccess.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E5E854218274A2F0064B44E /* FMDBDataAccess.m */; };
 		9E5E85441830573D0064B44E /* FirstViewController.h in Sources */ = {isa = PBXBuildFile; fileRef = 9EA4D2BD17EA76310067AFB7 /* FirstViewController.h */; };
 		9E6300EB1818BA06009827B1 /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 9E6300EA1818BA06009827B1 /* libsqlite3.dylib */; };
 		9E6300EE1818C0AC009827B1 /* ExerciseEntryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E6300ED1818C0AC009827B1 /* ExerciseEntryViewController.m */; };
+		9E6DB341183334B00060DAE8 /* test.db in Resources */ = {isa = PBXBuildFile; fileRef = 9E6DB340183334B00060DAE8 /* test.db */; };
 		9EA4D2A017EA76310067AFB7 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9EA4D29F17EA76310067AFB7 /* UIKit.framework */; };
 		9EA4D2A217EA76310067AFB7 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9EA4D2A117EA76310067AFB7 /* Foundation.framework */; };
 		9EA4D2A417EA76310067AFB7 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9EA4D2A317EA76310067AFB7 /* CoreGraphics.framework */; };
@@ -42,12 +42,12 @@
 		9E5E8537182200010064B44E /* FMResultSet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMResultSet.m; sourceTree = "<group>"; };
 		9E5E853A182200440064B44E /* FMDatabasePool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMDatabasePool.h; sourceTree = "<group>"; };
 		9E5E853B182200440064B44E /* FMDatabasePool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMDatabasePool.m; sourceTree = "<group>"; };
-		9E5E853D1826EFF50064B44E /* test.db */ = {isa = PBXFileReference; lastKnownFileType = file; path = test.db; sourceTree = "<group>"; };
 		9E5E854118274A2F0064B44E /* FMDBDataAccess.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMDBDataAccess.h; sourceTree = "<group>"; };
 		9E5E854218274A2F0064B44E /* FMDBDataAccess.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMDBDataAccess.m; sourceTree = "<group>"; };
 		9E6300EA1818BA06009827B1 /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
 		9E6300EC1818C0AC009827B1 /* ExerciseEntryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExerciseEntryViewController.h; sourceTree = "<group>"; };
 		9E6300ED1818C0AC009827B1 /* ExerciseEntryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ExerciseEntryViewController.m; sourceTree = "<group>"; };
+		9E6DB340183334B00060DAE8 /* test.db */ = {isa = PBXFileReference; lastKnownFileType = file; path = test.db; sourceTree = "<group>"; };
 		9EA4D29C17EA76310067AFB7 /* tonal.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = tonal.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9EA4D29F17EA76310067AFB7 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		9EA4D2A117EA76310067AFB7 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -165,10 +165,10 @@
 		9EA4D2A617EA76310067AFB7 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				9E6DB340183334B00060DAE8 /* test.db */,
 				9EF09E2318307A77002A12E8 /* setting1.png */,
 				9EF09E2418307A77002A12E8 /* setting2.png */,
 				9EF09E1B18307098002A12E8 /* microphone.png */,
-				9E5E853D1826EFF50064B44E /* test.db */,
 				9EA4D2A717EA76310067AFB7 /* tonal-Info.plist */,
 				9EF09E19183063B5002A12E8 /* tonal.png */,
 				9EA4D2A817EA76310067AFB7 /* InfoPlist.strings */,
@@ -240,8 +240,8 @@
 				9EA4D2B417EA76310067AFB7 /* Default@2x.png in Resources */,
 				9EA4D2B617EA76310067AFB7 /* Default-568h@2x.png in Resources */,
 				9EF09E2518307A77002A12E8 /* setting1.png in Resources */,
-				9E5E853F182745040064B44E /* test.db in Resources */,
 				9EA4D2B917EA76310067AFB7 /* MainStoryboard.storyboard in Resources */,
+				9E6DB341183334B00060DAE8 /* test.db in Resources */,
 				9EF09E2618307A77002A12E8 /* setting2.png in Resources */,
 				9EA4D2C617EA7AD90067AFB7 /* data.plist in Resources */,
 			);

@@ -138,4 +138,60 @@
     
 }
 
+-(NSInteger) getCurrentTrainingPlanId
+{
+    db = [FMDatabase databaseWithPath:[self getDatabasePath]];
+    [db open];
+    
+    NSInteger id = 0, numResults = 0;
+    FMResultSet *results;
+    
+    // should return one record
+    results = [db executeQuery:@"select id from training_plan where is_open = 1"];
+    
+    while([results next])
+    {
+        id = [results intForColumn:@"id"];
+        numResults ++;
+    }
+    
+    NSLog(@"FMDBDataAccess : getCurrentTrainingPlanId returned ID: %d", id);
+    
+    [db close];
+    
+    return id;
+}
+
+-(NSDate *) getCurrentTrainingPlanStartDate
+{
+    db = [FMDatabase databaseWithPath:[self getDatabasePath]];
+    [db open];
+    
+    NSInteger numResults = 0;
+    NSString* start_date_string = nil;
+    NSDate * start_date;
+    
+    FMResultSet *results;
+    
+    // should return one record
+    results = [db executeQuery:@"select start_date from training_plan where is_open = 1"];
+    
+    while([results next])
+    {
+        start_date_string = [results stringForColumn:@"start_date"];
+        numResults ++;
+    }
+    
+    if (start_date_string == nil) {
+        NSLog(@"getCurrentTrainingPlanStartDate: Start date is null");
+    }
+    
+    [db close];
+    
+    NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
+    [dateFormat setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+    start_date = [dateFormat dateFromString:start_date_string];
+        
+    return start_date;
+}
 @end

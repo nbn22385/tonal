@@ -20,5 +20,7 @@
 -(NSMutableArray *) getExercises:(NSString*)forGroup;
 -(NSString *) getUnitName:(NSString *)forExercise;
 -(BOOL) hasSetsReps:(NSString *)forExercise;
+-(NSInteger) getCurrentTrainingPlanId;
+-(NSDate *) getCurrentTrainingPlanStartDate;
 
 @end
