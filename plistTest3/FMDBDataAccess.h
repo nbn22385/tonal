@@ -22,5 +22,7 @@
 -(BOOL) hasSetsReps:(NSString *)forExercise;
 -(NSInteger) getCurrentTrainingPlanId;
 -(NSDate *) getCurrentTrainingPlanStartDate;
+-(BOOL) closeCurrentTrainingPlan;
+-(NSInteger) createNewTrainingPlan;
 
 @end

@@ -194,4 +194,39 @@
         
     return start_date;
 }
+
+-(BOOL) closeCurrentTrainingPlan
+{
+    db = [FMDatabase databaseWithPath:[self getDatabasePath]];
+    [db open];
+
+    NSDate *today=[NSDate date];
+    NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
+    [dateFormat setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+    NSString *dateString=[dateFormat stringFromDate:today];
+    
+    BOOL result = [db executeUpdateWithFormat:@"update training_plan set end_date = %@, is_open = 0 where is_open = 1",dateString];
+    //BOOL result = [db executeUpdate:@"update training_plan set is_open = 0 where is_open = 1"];
+    
+    [db close];
+    
+    return result;
+}
+
+-(NSInteger) createNewTrainingPlan
+{
+    db = [FMDatabase databaseWithPath:[self getDatabasePath]];
+    [db open];
+    
+    NSInteger id = 0;
+    BOOL result = false;
+    
+    result = [db executeUpdateWithFormat:
+               @"insert into training_plan (start_date, end_date, is_open) values (datetime('now'),NULL,1)"];
+        
+    [db close];
+    
+    return id;
+}
+
 @end

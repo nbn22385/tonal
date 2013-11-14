@@ -15,7 +15,7 @@
 @end
 
 @implementation FirstViewController
-@synthesize nwButton, continueButton, infoLabel;
+@synthesize nwTpButton, continueTpButton, closeTpButton, infoLabel;
 
 #pragma mark - Managing the detail item
 
@@ -43,14 +43,17 @@
     
     if (currTpId == 0) {
         // No open training plans
-        [nwButton setEnabled:YES];
-        [continueButton setEnabled:NO];
+        [nwTpButton setEnabled:YES];
+        [continueTpButton setEnabled:NO];
+        [closeTpButton setHidden:YES];
         [infoLabel setText:@""];
     }
     else {
         // Found an open training plan
-        [nwButton setEnabled:NO];
-        [continueButton setEnabled:YES];
+        [nwTpButton setEnabled:NO];
+        [continueTpButton setEnabled:YES];
+        [closeTpButton setHidden:NO];
+        [closeTpButton setEnabled:YES];
         tpStartDate = [self getCurrentTrainingPlanStartDate];
         [infoLabel setText:[@"Started on: " stringByAppendingString:tpStartDate]];
     }
@@ -70,7 +73,22 @@
     // Dispose of any resources that can be recreated.
 }
 
-- (IBAction)startButton:(id)sender {
+- (IBAction)closeTrainingPlanButtonClick:(id)sender {
+    
+    UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"Please Confirm"
+                                                   message:@"Close Training Plan?"
+                                                  delegate:self
+                                         cancelButtonTitle:@"No"
+                                         otherButtonTitles:@"Yes", nil];
+    [alert show];
+
+}
+
+- (IBAction)newTrainingPlanButtonClick:(id)sender {
+    // Create a new training plan record
+    [self createNewTrainingPlan];
+    [self configureView];
+    
 }
 
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
@@ -80,6 +98,20 @@
 
         //masterViewController.trainingPlanId = ?;
         
+    }
+}
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if (buttonIndex == 0)
+    {
+        // No button
+    }
+    if (buttonIndex == 1)
+    {
+        // Yes button
+        [self closeCurrentTrainingPlan];
+        [self configureView];
     }
 }
 
@@ -105,6 +137,24 @@
     [dateFormat setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
         
     return [dateFormat stringFromDate:startDate];
+}
+
+-(BOOL)closeCurrentTrainingPlan
+{
+    BOOL result;
+    FMDBDataAccess *db = [[FMDBDataAccess alloc] init];
+    result = [db closeCurrentTrainingPlan];
+    NSLog(@"closeCurrentTrainingPlan result: %d", result);
+    return result;
+}
+
+-(NSInteger)createNewTrainingPlan
+{
+    NSInteger id;
+    FMDBDataAccess *db = [[FMDBDataAccess alloc] init];
+    
+    id = [db createNewTrainingPlan];
+    return id;
 }
 
 @end

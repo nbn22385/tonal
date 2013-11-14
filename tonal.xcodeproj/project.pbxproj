@@ -15,6 +15,7 @@
 		9E6300EB1818BA06009827B1 /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 9E6300EA1818BA06009827B1 /* libsqlite3.dylib */; };
 		9E6300EE1818C0AC009827B1 /* ExerciseEntryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E6300ED1818C0AC009827B1 /* ExerciseEntryViewController.m */; };
 		9E6DB341183334B00060DAE8 /* test.db in Resources */ = {isa = PBXBuildFile; fileRef = 9E6DB340183334B00060DAE8 /* test.db */; };
+		9E6DB3441834681F0060DAE8 /* SettingsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E6DB3431834681F0060DAE8 /* SettingsController.m */; };
 		9EA4D2A017EA76310067AFB7 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9EA4D29F17EA76310067AFB7 /* UIKit.framework */; };
 		9EA4D2A217EA76310067AFB7 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9EA4D2A117EA76310067AFB7 /* Foundation.framework */; };
 		9EA4D2A417EA76310067AFB7 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9EA4D2A317EA76310067AFB7 /* CoreGraphics.framework */; };
@@ -48,6 +49,8 @@
 		9E6300EC1818C0AC009827B1 /* ExerciseEntryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExerciseEntryViewController.h; sourceTree = "<group>"; };
 		9E6300ED1818C0AC009827B1 /* ExerciseEntryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ExerciseEntryViewController.m; sourceTree = "<group>"; };
 		9E6DB340183334B00060DAE8 /* test.db */ = {isa = PBXFileReference; lastKnownFileType = file; path = test.db; sourceTree = "<group>"; };
+		9E6DB3421834681F0060DAE8 /* SettingsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingsController.h; sourceTree = "<group>"; };
+		9E6DB3431834681F0060DAE8 /* SettingsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsController.m; sourceTree = "<group>"; };
 		9EA4D29C17EA76310067AFB7 /* tonal.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = tonal.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9EA4D29F17EA76310067AFB7 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		9EA4D2A117EA76310067AFB7 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -149,6 +152,8 @@
 				9EA4D2AF17EA76310067AFB7 /* AppDelegate.m */,
 				9EA4D2BD17EA76310067AFB7 /* FirstViewController.h */,
 				9EA4D2BE17EA76310067AFB7 /* FirstViewController.m */,
+				9E6DB3421834681F0060DAE8 /* SettingsController.h */,
+				9E6DB3431834681F0060DAE8 /* SettingsController.m */,
 				9EA4D2BA17EA76310067AFB7 /* MasterViewController.h */,
 				9EA4D2BB17EA76310067AFB7 /* MasterViewController.m */,
 				9EA4D2C717EA9CC00067AFB7 /* ExerciseViewController.h */,
@@ -254,6 +259,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9E6DB3441834681F0060DAE8 /* SettingsController.m in Sources */,
 				9EA4D2AC17EA76310067AFB7 /* main.m in Sources */,
 				9EA4D2B017EA76310067AFB7 /* AppDelegate.m in Sources */,
 				9EA4D2BC17EA76310067AFB7 /* MasterViewController.m in Sources */,

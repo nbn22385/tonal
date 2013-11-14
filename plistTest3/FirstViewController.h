@@ -8,15 +8,23 @@
 
 #import <UIKit/UIKit.h>
 
-@interface FirstViewController : UIViewController
+@interface FirstViewController : UIViewController<UIAlertViewDelegate>
 {
 }
 
 @property (strong, nonatomic) id detailItem;
-@property (strong, nonatomic) IBOutlet UIButton *nwButton;
-@property (strong, nonatomic) IBOutlet UIButton *continueButton;
+@property (strong, nonatomic) IBOutlet UIButton *nwTpButton;
+@property (strong, nonatomic) IBOutlet UIButton *continueTpButton;
+@property (strong, nonatomic) IBOutlet UIButton *closeTpButton;
 @property (strong, nonatomic) IBOutlet UILabel *infoLabel;
 
-- (IBAction)startButton:(id)sender;
+// Tab bar stuff
+@property (strong, nonatomic) IBOutlet UITabBar *myTabBar;
+@property (strong, nonatomic) IBOutlet UITabBarItem *settingsTabBarItem;
+
+// IBActions
+- (IBAction)closeTrainingPlanButtonClick:(id)sender;
+- (IBAction)newTrainingPlanButtonClick:(id)sender;
+
 @property (weak, nonatomic) IBOutlet UILabel *detailDescriptionLabel;
 @end
