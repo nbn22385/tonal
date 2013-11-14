@@ -104,6 +104,7 @@
     return YES;
 }
 
+#pragma mark - Button click
 
 - (IBAction)addSetButtonPressed:(id)sender
 {
@@ -114,7 +115,18 @@
     // Clear the text fields
     repTextField.text = @"";
     weightTextField.text = @"";
+    
+    // Add a set to the exercise record for the training plan
+    // check if an exercise record with this name exists for this training plan
+    NSInteger erId = [self getCurrentExerciseRecordId];
+    if (erId == 0) {
+        // create an exercise record for this exercise, get a new erId
+        // erId = create new exercise record
+    }
 
+    // create a new set record, set er_parent_id = erId
+
+    
 }
 
 #pragma mark - Database functions
@@ -126,7 +138,15 @@
     
     self.hasSetsReps = [db hasSetsReps:(exerciseName)];
     self.unitName = [db getUnitName:(exerciseName)];
+}
+
+-(NSInteger)getCurrentExerciseRecordId
+{
+    NSInteger id;
+    FMDBDataAccess *db = [[FMDBDataAccess alloc] init];
     
+    id = [db getCurrentExerciseRecordId:exerciseName];
+    return id;
 }
 
 @end

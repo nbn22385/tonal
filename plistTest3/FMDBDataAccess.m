@@ -229,4 +229,29 @@
     return id;
 }
 
+-(NSInteger) getCurrentExerciseRecordId:(NSString*)forExerciseName
+{
+    db = [FMDatabase databaseWithPath:[self getDatabasePath]];
+    [db open];
+    
+    NSInteger id = 0, numResults = 0;
+    FMResultSet *results;
+    
+    // should return one record
+    results = [db executeQuery:
+               @"select id from exercise_record where exercise_name = %@ and tp_parent_id = (select id from training_plan where is_open = 1)", forExerciseName];
+    
+    while([results next])
+    {
+        id = [results intForColumn:@"id"];
+        numResults ++;
+    }
+    
+    NSLog(@"FMDBDataAccess : getCurrentExerciseRecordId returned ID: %d", id);
+    
+    [db close];
+    
+    return id;
+}
+
 @end

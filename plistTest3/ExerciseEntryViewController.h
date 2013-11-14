@@ -26,6 +26,7 @@
 @property (nonatomic, strong) IBOutlet UILabel *thirdLabel;
 @property (strong, nonatomic) IBOutlet UITextField *thirdTextField;
 
+@property (strong, nonatomic) IBOutlet UITableView *pastSetsTable;
 
 // IBActions
 - (IBAction)addSetButtonPressed:(id)sender;

@@ -25,6 +25,7 @@
 // IBActions
 - (IBAction)closeTrainingPlanButtonClick:(id)sender;
 - (IBAction)newTrainingPlanButtonClick:(id)sender;
+- (IBAction)continueTrainingPlanButtonClick:(id)sender;
 
 @property (weak, nonatomic) IBOutlet UILabel *detailDescriptionLabel;
 @end

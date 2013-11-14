@@ -73,6 +73,18 @@
     // Dispose of any resources that can be recreated.
 }
 
+-(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    
+    if([[segue identifier] isEqualToString:@"FirstSegue"]){
+        MasterViewController *masterViewController = [segue destinationViewController];
+
+        //masterViewController.trainingPlanId = ?;
+        
+    }
+}
+
+#pragma mark - Button click events
+
 - (IBAction)closeTrainingPlanButtonClick:(id)sender {
     
     UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"Please Confirm"
@@ -81,7 +93,7 @@
                                          cancelButtonTitle:@"No"
                                          otherButtonTitles:@"Yes", nil];
     [alert show];
-
+    
 }
 
 - (IBAction)newTrainingPlanButtonClick:(id)sender {
@@ -91,14 +103,10 @@
     
 }
 
--(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+- (IBAction)continueTrainingPlanButtonClick:(id)sender {
+    // Continue with the open training plan
+    NSInteger curentId = [self getCurrentTrainingPlanId];
     
-    if([[segue identifier] isEqualToString:@"FirstSegue"]){
-        MasterViewController *masterViewController = [segue destinationViewController];
-
-        //masterViewController.trainingPlanId = ?;
-        
-    }
 }
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
