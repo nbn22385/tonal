@@ -51,6 +51,9 @@
 
     // Toggle the controls according to the exercise
     [self configureControls];
+    
+    // Set the exercise id
+    self.exerciseId = [self getIdForExerciseName];
 
 }
 
@@ -117,15 +120,17 @@
     weightTextField.text = @"";
     
     // Add a set to the exercise record for the training plan
-    // check if an exercise record with this name exists for this training plan
+    // First, check if an exercise record with this name/id exists for this training pla
     NSInteger erId = [self getCurrentExerciseRecordId];
     if (erId == 0) {
         // create an exercise record for this exercise, get a new erId
         // erId = create new exercise record
+        [self createExerciseRecord];
     }
 
     // create a new set record, set er_parent_id = erId
-
+    erId = [self getCurrentExerciseRecordId];
+    [self addSetToExerciseRecord: erId: [[repTextField text]integerValue] : [[weightTextField text]integerValue]];
     
 }
 
@@ -140,13 +145,48 @@
     self.unitName = [db getUnitName:(exerciseName)];
 }
 
+-(NSInteger)getIdForExerciseName
+{
+    NSInteger eId = -1;
+    FMDBDataAccess *db = [[FMDBDataAccess alloc] init];
+    eId = [db getIdForExerciseName:self.exerciseName];
+    return eId;
+}
+
 -(NSInteger)getCurrentExerciseRecordId
 {
     NSInteger id;
     FMDBDataAccess *db = [[FMDBDataAccess alloc] init];
     
-    id = [db getCurrentExerciseRecordId:exerciseName];
+    id = [db getCurrentExerciseRecordId:self.exerciseId];
     return id;
+}
+
+-(BOOL)exerciseExistsInTrainingPlan
+{
+    FMDBDataAccess *db = [[FMDBDataAccess alloc] init];
+
+    NSInteger id = [db exerciseExistsInTrainingPlan:self.exerciseId];
+    BOOL result = (id > 0) ? TRUE : FALSE;
+    
+    return result;
+}
+
+
+-(void)addSetToExerciseRecord:(NSInteger)erId :(NSInteger)reps :(NSInteger)value
+{
+    FMDBDataAccess *db = [[FMDBDataAccess alloc] init];
+    BOOL result = FALSE;
+    result = [db addSetToExerciseRecord: erId: reps: value];
+
+}
+
+-(void)createExerciseRecord
+{
+    // need tp_parent_id, exercise_id
+    FMDBDataAccess *db = [[FMDBDataAccess alloc] init];
+    BOOL result = [db createExerciseRecord:self.exerciseId];
+    
 }
 
 @end

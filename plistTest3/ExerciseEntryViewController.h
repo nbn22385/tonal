@@ -35,6 +35,7 @@
 
 @property (strong, nonatomic) NSString *databasePath;
 @property (strong, nonatomic) NSString *exerciseName;
+@property  NSInteger exerciseId;
 @property (strong, nonatomic) NSString *unitName;
 @property BOOL hasSetsReps;
 

@@ -24,6 +24,12 @@
 -(NSDate *) getCurrentTrainingPlanStartDate;
 -(BOOL) closeCurrentTrainingPlan;
 -(NSInteger) createNewTrainingPlan;
--(NSInteger) getCurrentExerciseRecordId:(NSString*)forExerciseName;
+-(NSInteger) getCurrentExerciseRecordId:(NSInteger)forActivityId;
+
+-(NSInteger)getIdForExerciseName:(NSString*)exerciseName;
+-(BOOL)addSetToExerciseRecord:(NSInteger)erId :(NSInteger)numReps :(NSInteger)value;
+-(NSInteger)exerciseExistsInTrainingPlan:(NSInteger)erId;
+-(BOOL)createExerciseRecord:(NSInteger)activityId;
+
 
 @end

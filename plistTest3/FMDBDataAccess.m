@@ -47,15 +47,12 @@
         default:
             break;
     }
-    //FMResultSet *results = [db executeQuery:@"SELECT DISTINCT group_name FROM exercises"];
     
     while([results next])
     {
         NSString *category = [[NSString alloc] init];
         
         category = [results stringForColumn:@"group_name"];
-        //customer.firstName = [results stringForColumn:@"firstname"];
-        //customer.lastName = [results stringForColumn:@"lastname"];
         
         [categories addObject:category];
         
@@ -77,7 +74,7 @@
     
     FMResultSet *results;
 
-    results = [db executeQueryWithFormat:@"SELECT exercise_name FROM exercises WHERE group_name = %@ ORDER BY exercise_name", forGroup];
+    results = [db executeQuery:@"SELECT exercise_name FROM exercises WHERE group_name = ? ORDER BY exercise_name", forGroup];
     
     while([results next])
     {
@@ -102,8 +99,8 @@
     FMResultSet *results;
     NSString *units = [[NSString alloc] init];
 
-    results = [db executeQueryWithFormat:
-               @"select unit_name from units where id = (select unit_id from exercises where exercise_name = %@)", forExercise];
+    results = [db executeQuery:
+               @"select unit_name from units where id = (select unit_id from exercises where exercise_name = ?)", forExercise];
     
     while([results next])
     {
@@ -124,8 +121,8 @@
     
     FMResultSet *results;
     
-    results = [db executeQueryWithFormat:
-               @"select sets from units where id = (select unit_id from exercises where exercise_name = %@)", forExercise];
+    results = [db executeQuery:
+               @"select sets from units where id = (select unit_id from exercises where exercise_name = ?)", forExercise];
     
     while([results next])
     {
@@ -205,8 +202,7 @@
     [dateFormat setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
     NSString *dateString=[dateFormat stringFromDate:today];
     
-    BOOL result = [db executeUpdateWithFormat:@"update training_plan set end_date = %@, is_open = 0 where is_open = 1",dateString];
-    //BOOL result = [db executeUpdate:@"update training_plan set is_open = 0 where is_open = 1"];
+    BOOL result = [db executeUpdate:@"update training_plan set end_date = ?, is_open = 0 where is_open = 1", dateString];
     
     [db close];
     
@@ -222,15 +218,17 @@
     BOOL result = false;
     
     result = [db executeUpdateWithFormat:
-               @"insert into training_plan (start_date, end_date, is_open) values (datetime('now'),NULL,1)"];
+               @"insert into training_plan (start_date, end_date, is_open) values (datetime('now'), NULL, 1)"];
         
     [db close];
     
     return id;
 }
 
--(NSInteger) getCurrentExerciseRecordId:(NSString*)forExerciseName
+-(NSInteger) getCurrentExerciseRecordId:(NSInteger)forActivityId
 {
+    // Get the exercise_record id for the open TP if it exists
+    
     db = [FMDatabase databaseWithPath:[self getDatabasePath]];
     [db open];
     
@@ -238,8 +236,8 @@
     FMResultSet *results;
     
     // should return one record
-    results = [db executeQuery:
-               @"select id from exercise_record where exercise_name = %@ and tp_parent_id = (select id from training_plan where is_open = 1)", forExerciseName];
+    results = [db executeQueryWithFormat:
+               @"select id from exercise_record where exercise_id = %d and tp_parent_id = (select id from training_plan where is_open = 1)", forActivityId]; // try using open_exercise_records view
     
     while([results next])
     {
@@ -252,6 +250,82 @@
     [db close];
     
     return id;
+}
+
+-(NSInteger)getIdForExerciseName:(NSString*)exerciseName
+{
+    db = [FMDatabase databaseWithPath:[self getDatabasePath]];
+    [db open];
+    
+    NSInteger id = 0, numResults = 0;
+    FMResultSet *results;
+    
+    // should return one record
+    results = [db executeQuery:@"select id from exercises where exercise_name = ?", exerciseName];
+
+    while([results next])
+    {
+        id = [results intForColumn:@"id"];
+        numResults ++;
+    }
+    
+    NSLog(@"FMDBDataAccess : getIdForExerciseName returned ID: %d for exercise: %@", id, exerciseName);
+
+    [db close];
+    return id;
+}
+
+-(BOOL)addSetToExerciseRecord:(NSInteger)erId :(NSInteger)numReps :(NSInteger)value
+{
+    //NSInteger currTpId = [self getCurrentTrainingPlanId];
+    db = [FMDatabase databaseWithPath:[self getDatabasePath]];
+    [db open];
+    BOOL result = false;
+    
+    result = [db executeUpdateWithFormat:
+              @"insert into set_records (er_parent_id, num_reps, value, timestamp) values (%d, %d, %d, datetime('now'))",
+              erId, numReps, value];
+    [db close];
+    return result;
+}
+
+-(NSInteger)exerciseExistsInTrainingPlan:(NSInteger)activityId
+{
+    NSInteger erId = 0, numResults = 0;
+    db = [FMDatabase databaseWithPath:[self getDatabasePath]];
+    [db open];    
+    FMResultSet *results;
+    
+    // should return one record
+    results = [db executeQuery:@"select id from exercise_record where exercise_id = %d and tp_parent_id = (select id from training_plan where is_open = 1)", activityId];
+    
+    while([results next])
+    {
+        erId = [results intForColumn:@"id"];
+        numResults ++;
+    }
+    
+    [db close];
+    // return the exercise_record id if found, otherwise return 0
+    return erId;
+    
+}
+
+-(BOOL)createExerciseRecord:(NSInteger)activityId
+{
+    NSInteger currTpId = [self getCurrentTrainingPlanId];
+
+    db = [FMDatabase databaseWithPath:[self getDatabasePath]];
+    [db open];
+    
+    BOOL result = false;
+    
+    result = [db executeUpdateWithFormat:
+              @"insert into exercise_record (tp_parent_id, exercise_id) values (%d, %d)", currTpId, activityId];
+    
+    [db close];
+    
+    return result;
 }
 
 @end
