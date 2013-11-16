@@ -16,6 +16,7 @@
 
 @implementation FirstViewController
 @synthesize nwTpButton, continueTpButton, closeTpButton, infoLabel;
+@synthesize currentTpId;
 
 #pragma mark - Managing the detail item
 
@@ -38,10 +39,10 @@
     }
     
     // If a training plan is in progress, disable New button, enable Continue button
-    NSInteger currTpId = [self getCurrentTrainingPlanId];
+    currentTpId = [self getCurrentTrainingPlanId];
     NSString* tpStartDate;
     
-    if (currTpId == 0) {
+    if (currentTpId == 0) {
         // No open training plans
         [nwTpButton setEnabled:YES];
         [continueTpButton setEnabled:NO];
@@ -105,7 +106,7 @@
 
 - (IBAction)continueTrainingPlanButtonClick:(id)sender {
     // Continue with the open training plan
-    NSInteger curentId = [self getCurrentTrainingPlanId];
+    //NSInteger curentId = [self getCurrentTrainingPlanId];
     
 }
 

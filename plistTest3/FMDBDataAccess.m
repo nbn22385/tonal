@@ -20,7 +20,7 @@
     
     NSArray *documentPaths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     NSString *documentDir = [documentPaths objectAtIndex:0];
-    NSLog(@"Documents dir: %@", documentDir);
+    //NSLog(@"Documents dir: %@", documentDir);
     self.databasePath = [documentDir stringByAppendingPathComponent:self.databaseName];
     return self.databasePath;
 }
@@ -152,7 +152,7 @@
         numResults ++;
     }
     
-    NSLog(@"FMDBDataAccess : getCurrentTrainingPlanId returned ID: %d", id);
+    NSLog(@"getCurrentTrainingPlanId: returned ID: %d", id);
     
     [db close];
     
@@ -203,7 +203,9 @@
     NSString *dateString=[dateFormat stringFromDate:today];
     
     BOOL result = [db executeUpdate:@"update training_plan set end_date = ?, is_open = 0 where is_open = 1", dateString];
-    
+    if (result) {
+        NSLog(@"closeCurrentTrainingPlan: closed training plan");
+    }
     [db close];
     
     return result;
@@ -219,8 +221,12 @@
     
     result = [db executeUpdateWithFormat:
                @"insert into training_plan (start_date, end_date, is_open) values (datetime('now'), NULL, 1)"];
-        
+    
     [db close];
+    
+    if (result) {
+        NSLog(@"createNewTrainingPlan: created training plan");
+    }
     
     return id;
 }
@@ -245,7 +251,7 @@
         numResults ++;
     }
     
-    NSLog(@"FMDBDataAccess : getCurrentExerciseRecordId returned ID: %d", id);
+    NSLog(@"getCurrentExerciseRecordId: returned ID: %d", id);
     
     [db close];
     
@@ -269,29 +275,15 @@
         numResults ++;
     }
     
-    NSLog(@"FMDBDataAccess : getIdForExerciseName returned ID: %d for exercise: %@", id, exerciseName);
+    NSLog(@"getIdForExerciseName: returned id %d for exercise: %@", id, exerciseName);
 
     [db close];
     return id;
 }
 
--(BOOL)addSetToExerciseRecord:(NSInteger)erId :(NSInteger)numReps :(NSInteger)value
-{
-    //NSInteger currTpId = [self getCurrentTrainingPlanId];
-    db = [FMDatabase databaseWithPath:[self getDatabasePath]];
-    [db open];
-    BOOL result = false;
-    
-    result = [db executeUpdateWithFormat:
-              @"insert into set_records (er_parent_id, num_reps, value, timestamp) values (%d, %d, %d, datetime('now'))",
-              erId, numReps, value];
-    [db close];
-    return result;
-}
-
 -(NSInteger)exerciseExistsInTrainingPlan:(NSInteger)activityId
 {
-    NSInteger erId = 0, numResults = 0;
+    NSInteger erId = 0;
     db = [FMDatabase databaseWithPath:[self getDatabasePath]];
     [db open];    
     FMResultSet *results;
@@ -302,7 +294,7 @@
     while([results next])
     {
         erId = [results intForColumn:@"id"];
-        numResults ++;
+        NSLog(@"exerciseExistsInTrainingPlan: exercise id %d exists in training plan", activityId);
     }
     
     [db close];
@@ -320,10 +312,32 @@
     
     BOOL result = false;
     
-    result = [db executeUpdateWithFormat:
-              @"insert into exercise_record (tp_parent_id, exercise_id) values (%d, %d)", currTpId, activityId];
+    result = [db executeUpdateWithFormat:@"insert into exercise_record (tp_parent_id, exercise_id) values (%d, %d)", currTpId, activityId];
     
     [db close];
+    
+    if (result) {
+        NSLog(@"createExerciseRecord: created exercise record for exercise id %d", activityId);
+    }
+    
+    return result;
+}
+
+-(BOOL)addSetToExerciseRecord:(NSInteger)erId :(NSInteger)numReps :(NSInteger)value
+{
+    //NSInteger currTpId = [self getCurrentTrainingPlanId];
+    db = [FMDatabase databaseWithPath:[self getDatabasePath]];
+    [db open];
+    BOOL result = false;
+    
+    result = [db executeUpdateWithFormat:
+              @"insert into set_records (er_parent_id, num_reps, value, timestamp) values (%d, %d, %d, datetime('now'))",
+              erId, numReps, value];
+    [db close];
+    
+    if (result) {
+        NSLog(@"addSetToExerciseRecord: created set (%d/%d) for exercise record %d", numReps, value, erId);
+    }
     
     return result;
 }

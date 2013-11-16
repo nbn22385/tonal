@@ -28,4 +28,7 @@
 - (IBAction)continueTrainingPlanButtonClick:(id)sender;
 
 @property (weak, nonatomic) IBOutlet UILabel *detailDescriptionLabel;
+
+@property NSInteger currentTpId;
+
 @end

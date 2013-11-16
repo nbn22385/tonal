@@ -115,11 +115,6 @@
     [repTextField resignFirstResponder];
     [weightTextField resignFirstResponder];
     
-    // Clear the text fields
-    repTextField.text = @"";
-    weightTextField.text = @"";
-    
-    // Add a set to the exercise record for the training plan
     // First, check if an exercise record with this name/id exists for this training pla
     NSInteger erId = [self getCurrentExerciseRecordId];
     if (erId == 0) {
@@ -130,8 +125,15 @@
 
     // create a new set record, set er_parent_id = erId
     erId = [self getCurrentExerciseRecordId];
-    [self addSetToExerciseRecord: erId: [[repTextField text]integerValue] : [[weightTextField text]integerValue]];
     
+    NSInteger reps = [repTextField.text integerValue];
+    NSInteger value = [weightTextField.text integerValue];
+    
+    [self addSetToExerciseRecord: erId: reps: value];
+    
+    // Clear the text fields
+    repTextField.text = @"";
+    weightTextField.text = @"";
 }
 
 #pragma mark - Database functions
@@ -172,20 +174,19 @@
     return result;
 }
 
+-(void)createExerciseRecord
+{
+    // need tp_parent_id, exercise_id
+    FMDBDataAccess *db = [[FMDBDataAccess alloc] init];
+    BOOL result = [db createExerciseRecord:self.exerciseId];
+    
+}
 
 -(void)addSetToExerciseRecord:(NSInteger)erId :(NSInteger)reps :(NSInteger)value
 {
     FMDBDataAccess *db = [[FMDBDataAccess alloc] init];
     BOOL result = FALSE;
     result = [db addSetToExerciseRecord: erId: reps: value];
-
-}
-
--(void)createExerciseRecord
-{
-    // need tp_parent_id, exercise_id
-    FMDBDataAccess *db = [[FMDBDataAccess alloc] init];
-    BOOL result = [db createExerciseRecord:self.exerciseId];
     
 }
 
