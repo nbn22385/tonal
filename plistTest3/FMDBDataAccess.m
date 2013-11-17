@@ -10,6 +10,8 @@
 #import "FMDatabase.h"
 #import "FMResultSet.h"
 
+#import "SetRecord.h"
+
 @implementation FMDBDataAccess
 {}
 @synthesize db;
@@ -165,8 +167,8 @@
     [db open];
     
     NSInteger numResults = 0;
-    NSString* start_date_string = nil;
-    NSDate * start_date;
+    NSString* startDateStr = nil;
+    NSDate * startDate;
     
     FMResultSet *results;
     
@@ -175,11 +177,11 @@
     
     while([results next])
     {
-        start_date_string = [results stringForColumn:@"start_date"];
+        startDateStr = [results stringForColumn:@"start_date"];
         numResults ++;
     }
     
-    if (start_date_string == nil) {
+    if (startDateStr == nil) {
         NSLog(@"getCurrentTrainingPlanStartDate: Start date is null");
     }
     
@@ -187,9 +189,10 @@
     
     NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
     [dateFormat setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
-    start_date = [dateFormat dateFromString:start_date_string];
+    dateFormat.timeZone = [NSTimeZone systemTimeZone];
+    startDate = [dateFormat dateFromString:startDateStr];
         
-    return start_date;
+    return startDate;
 }
 
 -(BOOL) closeCurrentTrainingPlan
@@ -200,6 +203,7 @@
     NSDate *today=[NSDate date];
     NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
     [dateFormat setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+    dateFormat.timeZone = [NSTimeZone systemTimeZone];
     NSString *dateString=[dateFormat stringFromDate:today];
     
     BOOL result = [db executeUpdate:@"update training_plan set end_date = ?, is_open = 0 where is_open = 1", dateString];
@@ -330,9 +334,15 @@
     [db open];
     BOOL result = false;
     
+    NSDate *today=[NSDate date];
+    NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
+    [dateFormat setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+    dateFormat.timeZone = [NSTimeZone systemTimeZone];
+    NSString *dateString=[dateFormat stringFromDate:today];
+    
     result = [db executeUpdateWithFormat:
-              @"insert into set_records (er_parent_id, num_reps, value, timestamp) values (%d, %d, %d, datetime('now'))",
-              erId, numReps, value];
+              @"insert into set_records (er_parent_id, num_reps, value, timestamp) values (%d, %d, %d, %@)",
+              erId, numReps, value, dateString];
     [db close];
     
     if (result) {
@@ -342,4 +352,47 @@
     return result;
 }
 
+-(NSArray*)getSetRecords:(NSInteger)forErId
+{
+    NSArray* srArray = [NSArray array];
+    
+    NSInteger numReps, value;
+    NSString* dateStr;
+    NSDate* date;
+    
+    db = [FMDatabase databaseWithPath:[self getDatabasePath]];
+    [db open];
+    FMResultSet *results;
+    
+    //results = [db executeQuery:@"select num_reps, value, timestamp from set_records where er_parent_id = %d", forErId];
+    results = [db executeQuery:[NSString stringWithFormat:@"select num_reps, value, timestamp from set_records where er_parent_id = %d",forErId]];
+
+    while([results next])
+    {
+        SetRecord* sr = [SetRecord alloc];
+
+        numReps = [results intForColumn:@"num_reps"];
+        value = [results intForColumn:@"value"];
+        dateStr = [results stringForColumn:@"timestamp"];
+        
+        NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
+        [dateFormat setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+        dateFormat.timeZone = [NSTimeZone systemTimeZone];
+        date = [dateFormat dateFromString:dateStr];
+        
+        // Fill the SetRecord object
+        sr.numReps = numReps;
+        sr.value = value;
+        sr.date = date;
+        
+        // Insert into array
+        srArray = [srArray arrayByAddingObject:sr];
+    }
+    
+    NSLog(@"getSetRecords: returned %d sets for exercise id %d", srArray.count, forErId);
+    
+    [db close];
+    
+    return srArray;
+}
 @end

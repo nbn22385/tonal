@@ -31,5 +31,6 @@
 -(NSInteger)exerciseExistsInTrainingPlan:(NSInteger)erId;
 -(BOOL)createExerciseRecord:(NSInteger)activityId;
 
+-(NSArray*)getSetRecords:(NSInteger)forErId;
 
 @end

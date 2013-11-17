@@ -23,7 +23,7 @@
     
     self.database = [FMDatabase databaseWithPath:self.databasePath];
     
-    [self deleteDatabaseFromDocuments];
+    //[self deleteDatabaseFromDocuments];
     [self copyDatabaseToDocuments];
     
     // Override point for customization after application launch.

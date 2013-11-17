@@ -31,10 +31,6 @@
 - (void)viewDidLoad
 {
     self.navigationItem.title = @"Categories";
-
-    // Load the property list   
-    NSString *plistPath = [[NSBundle mainBundle] pathForResource:@"data" ofType:@"plist"];
-    NSArray *rootPlistArray = [[NSArray alloc] initWithContentsOfFile:plistPath];
     
     [self populateCategories];
     
@@ -117,14 +113,9 @@
 
     switch ([indexPath section]) {
         case MUSCLE_SECTION:
-            //muscleGroupDict = [musclePlistArray objectAtIndexedSubscript:indexPath.row];
-            //muscleGroupDict = musclePlistArray [indexPath.row];//[musclePlistArray objectAtIndex:indexPath.row];
-            //cellItem = [muscleGroupDict valueForKey:@"group"];
             cellItem = categoryArray1 [indexPath.row];
             break;
         case CARDIO_SECTION:
-            //cardioGroupDict = [cardioPlistArray objectAtIndexedSubscript:indexPath.row];
-            //cellItem = [cardioGroupDict valueForKey:@"group"];
             cellItem = categoryArray2 [indexPath.row];
             break;
         default:
