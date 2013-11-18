@@ -122,8 +122,9 @@
     // Hide the keyboard
     [repTextField resignFirstResponder];
     [weightTextField resignFirstResponder];
+    [thirdTextField resignFirstResponder];
     
-    // Check if an exercise record with this name/id exists for this training pla
+    // Check if an exercise record with this name/id exists for this training plan
     if (self.exerciseRecordId == 0) {
         // Create an exercise record for this exercise
         [self createExerciseRecord];
@@ -146,7 +147,6 @@
     items = [self getSetRecords:self.exerciseRecordId];
     [self.setsTable reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationAutomatic];
 
-
 }
 
 #pragma mark Table view methods
@@ -163,18 +163,15 @@
 // Customize the appearance of table view cells.
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    //static NSString *CellIdentifier = @"setCell";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"setCell" forIndexPath:indexPath];
     
-    // Temp SetRecord for cell population
+    // SetRecord for cell population
     SetRecord* sr = [SetRecord alloc];
     sr = [items objectAtIndex:indexPath.row];
     
-    // Set up the cell...
+    // Set up the cell
     cell.textLabel.font = [UIFont fontWithName:@"Helvetica" size:14];
-    //cell.textLabel.text = [NSString stringWithFormat:@"Cell Row #%d", [indexPath row]];
-    //cell.textLabel.text = [items objectAtIndex:indexPath.row];
-    cell.textLabel.text = [NSString stringWithFormat:@"%d, %d",[sr numReps], [sr value]];
+    cell.textLabel.text = [NSString stringWithFormat:@"%dx%d",[sr numReps], [sr value]];
     
     cell.detailTextLabel.font = [UIFont fontWithName:@"Helvetica" size:12];
     NSString *dateString = [NSDateFormatter localizedStringFromDate:[sr date]
