@@ -36,6 +36,7 @@
 		9EF09E2518307A77002A12E8 /* setting1.png in Resources */ = {isa = PBXBuildFile; fileRef = 9EF09E2318307A77002A12E8 /* setting1.png */; };
 		9EF09E2618307A77002A12E8 /* setting2.png in Resources */ = {isa = PBXBuildFile; fileRef = 9EF09E2418307A77002A12E8 /* setting2.png */; };
 		9EF2E37018394B210076B36B /* SetRecord.m in Sources */ = {isa = PBXBuildFile; fileRef = 9EF2E36F18394B210076B36B /* SetRecord.m */; };
+		9EF2E3741839A2CF0076B36B /* HistoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9EF2E3731839A2CF0076B36B /* HistoryViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -81,6 +82,8 @@
 		9EF09E2418307A77002A12E8 /* setting2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = setting2.png; sourceTree = "<group>"; };
 		9EF2E36E18394B210076B36B /* SetRecord.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SetRecord.h; path = plistTest3/SetRecord.h; sourceTree = "<group>"; };
 		9EF2E36F18394B210076B36B /* SetRecord.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SetRecord.m; path = plistTest3/SetRecord.m; sourceTree = "<group>"; };
+		9EF2E3721839A2CF0076B36B /* HistoryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HistoryViewController.h; sourceTree = "<group>"; };
+		9EF2E3731839A2CF0076B36B /* HistoryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HistoryViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -166,6 +169,8 @@
 				9EA4D2C817EA9CC00067AFB7 /* ExerciseViewController.m */,
 				9E6300EC1818C0AC009827B1 /* ExerciseEntryViewController.h */,
 				9E6300ED1818C0AC009827B1 /* ExerciseEntryViewController.m */,
+				9EF2E3721839A2CF0076B36B /* HistoryViewController.h */,
+				9EF2E3731839A2CF0076B36B /* HistoryViewController.m */,
 				9E5E854118274A2F0064B44E /* FMDBDataAccess.h */,
 				9E5E854218274A2F0064B44E /* FMDBDataAccess.m */,
 				9EA4D2A617EA76310067AFB7 /* Supporting Files */,
@@ -176,20 +181,20 @@
 		9EA4D2A617EA76310067AFB7 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				9E6DB345183473140060DAE8 /* home.png */,
 				9E6DB340183334B00060DAE8 /* test.db */,
-				9EF09E2318307A77002A12E8 /* setting1.png */,
-				9EF09E2418307A77002A12E8 /* setting2.png */,
-				9EF09E1B18307098002A12E8 /* microphone.png */,
-				9EA4D2A717EA76310067AFB7 /* tonal-Info.plist */,
-				9EF09E19183063B5002A12E8 /* tonal.png */,
-				9EA4D2A817EA76310067AFB7 /* InfoPlist.strings */,
 				9EA4D2AB17EA76310067AFB7 /* main.m */,
 				9EA4D2AD17EA76310067AFB7 /* tonal-Prefix.pch */,
+				9EA4D2C517EA7AD90067AFB7 /* data.plist */,
+				9EA4D2A717EA76310067AFB7 /* tonal-Info.plist */,
+				9EA4D2B517EA76310067AFB7 /* Default-568h@2x.png */,
 				9EA4D2B117EA76310067AFB7 /* Default.png */,
 				9EA4D2B317EA76310067AFB7 /* Default@2x.png */,
-				9EA4D2B517EA76310067AFB7 /* Default-568h@2x.png */,
-				9EA4D2C517EA7AD90067AFB7 /* data.plist */,
+				9E6DB345183473140060DAE8 /* home.png */,
+				9EF09E1B18307098002A12E8 /* microphone.png */,
+				9EF09E2318307A77002A12E8 /* setting1.png */,
+				9EF09E2418307A77002A12E8 /* setting2.png */,
+				9EF09E19183063B5002A12E8 /* tonal.png */,
+				9EA4D2A817EA76310067AFB7 /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -282,6 +287,7 @@
 				9EA4D2B017EA76310067AFB7 /* AppDelegate.m in Sources */,
 				9EA4D2BC17EA76310067AFB7 /* MasterViewController.m in Sources */,
 				9E5E8538182200010064B44E /* FMDatabase.m in Sources */,
+				9EF2E3741839A2CF0076B36B /* HistoryViewController.m in Sources */,
 				9E5E854318274A2F0064B44E /* FMDBDataAccess.m in Sources */,
 				9EF2E37018394B210076B36B /* SetRecord.m in Sources */,
 				9E5E853C182200440064B44E /* FMDatabasePool.m in Sources */,

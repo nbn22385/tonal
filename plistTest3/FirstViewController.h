@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface FirstViewController : UIViewController<UIAlertViewDelegate>
+@interface FirstViewController : UIViewController<UIAlertViewDelegate, UITabBarDelegate>
 {
 }
 

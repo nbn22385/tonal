@@ -17,6 +17,7 @@
 @implementation FirstViewController
 @synthesize nwTpButton, continueTpButton, closeTpButton, infoLabel;
 @synthesize currentTpId;
+@synthesize myTabBar;
 
 #pragma mark - Managing the detail item
 
@@ -66,6 +67,10 @@
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
     [self configureView];
+    
+    myTabBar.delegate = self;
+    [myTabBar setSelectedItem:[myTabBar.items objectAtIndex:0]];
+
 }
 
 - (void)didReceiveMemoryWarning
@@ -81,6 +86,30 @@
 
         //masterViewController.trainingPlanId = ?;
         
+    }
+}
+
+#pragma mark - Tab bar methods
+
+- (void)tabBar:(UITabBar *)tabBar didSelectItem:(UITabBarItem *)item {
+    NSLog(@"didSelectItem: %d", item.tag);
+    
+    switch (item.tag) {
+        case 0:
+            // Home
+            break;
+        case 1:
+            // History
+            [self performSegueWithIdentifier:@"History" sender:nil];
+            break;
+        case 2:
+            // Voice
+            break;
+        case 3:
+            // Settings
+            break;
+        default:
+            break;
     }
 }
 

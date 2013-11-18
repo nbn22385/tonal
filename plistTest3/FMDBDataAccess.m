@@ -191,7 +191,7 @@
     [dateFormat setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
     dateFormat.timeZone = [NSTimeZone systemTimeZone];
     startDate = [dateFormat dateFromString:startDateStr];
-        
+    
     return startDate;
 }
 
@@ -220,11 +220,17 @@
     db = [FMDatabase databaseWithPath:[self getDatabasePath]];
     [db open];
     
+    NSDate *today=[NSDate date];
+    NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
+    [dateFormat setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+    dateFormat.timeZone = [NSTimeZone systemTimeZone];
+    NSString *dateString=[dateFormat stringFromDate:today];
+    
     NSInteger id = 0;
     BOOL result = false;
     
-    result = [db executeUpdateWithFormat:
-               @"insert into training_plan (start_date, end_date, is_open) values (datetime('now'), NULL, 1)"];
+    result = [db executeUpdate:
+               @"insert into training_plan (start_date, end_date, is_open) values (?, NULL, 1)", dateString];
     
     [db close];
     

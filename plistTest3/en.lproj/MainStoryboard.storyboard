@@ -60,10 +60,13 @@
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <items>
                                     <tabBarItem title="Home" image="home.png" id="FtZ-bh-DQl"/>
-                                    <tabBarItem systemItem="history" id="iHb-Bc-92Y"/>
-                                    <tabBarItem title="Voice" image="microphone.png" id="f0g-u1-PEn"/>
-                                    <tabBarItem title="Settings" image="setting2.png" id="hVN-yA-o7O"/>
+                                    <tabBarItem tag="1" systemItem="history" id="iHb-Bc-92Y"/>
+                                    <tabBarItem tag="2" title="Voice" image="microphone.png" id="f0g-u1-PEn"/>
+                                    <tabBarItem tag="3" title="Settings" image="setting2.png" id="hVN-yA-o7O"/>
                                 </items>
+                                <connections>
+                                    <outlet property="delegate" destination="7Dk-VJ-7Ln" id="2Qe-Vp-ENw"/>
+                                </connections>
                             </tabBar>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sEt-VX-cXa">
                                 <rect key="frame" x="71" y="326" width="179" height="26"/>
@@ -91,6 +94,34 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="kpP-HT-xfW" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1084" y="-298"/>
+        </scene>
+        <!--History View Controller-->
+        <scene sceneID="SIU-4X-Gbf">
+            <objects>
+                <tableViewController id="E7X-GJ-P7u" customClass="HistoryViewController" sceneMemberID="viewController">
+                    <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="Ark-ug-Q2J">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="T1Q-2b-3Fa">
+                                <rect key="frame" x="0.0" y="22" width="320" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="T1Q-2b-3Fa" id="8Hf-Fb-mTC">
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="E7X-GJ-P7u" id="1gJ-4o-L23"/>
+                            <outlet property="delegate" destination="E7X-GJ-P7u" id="sOx-37-kno"/>
+                        </connections>
+                    </tableView>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="8WL-XB-jvf" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1336" y="373"/>
         </scene>
         <!--View Controller - Item 1-->
         <scene sceneID="c9c-tD-65S">
