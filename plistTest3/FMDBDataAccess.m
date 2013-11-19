@@ -11,6 +11,7 @@
 #import "FMResultSet.h"
 
 #import "SetRecord.h"
+#import "TrainingPlanRecord.h"
 
 @implementation FMDBDataAccess
 {}
@@ -401,4 +402,48 @@
     
     return srArray;
 }
+
+-(NSArray*)getClosedTrainingPlanRecords
+{
+    NSArray* tpArray = [NSArray array];
+
+    NSString *startDateStr, *endDateStr, *name;
+    NSDate *startDate, *endDate;
+    
+    db = [FMDatabase databaseWithPath:[self getDatabasePath]];
+    [db open];
+    FMResultSet *results;
+    
+    results = [db executeQuery:[NSString stringWithFormat:@"select name, start_date, end_date from training_plan where is_open = 0"]];
+    
+    while([results next])
+    {
+        TrainingPlanRecord* tp = [TrainingPlanRecord alloc];
+        
+        name = [results stringForColumn:@"name"];
+        startDateStr = [results stringForColumn:@"start_date"];
+        endDateStr = [results stringForColumn:@"end_date"];
+
+        NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
+        [dateFormat setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+        dateFormat.timeZone = [NSTimeZone systemTimeZone];
+        startDate = [dateFormat dateFromString:startDateStr];
+        endDate = [dateFormat dateFromString:endDateStr];
+
+        // Fill the SetRecord object
+        tp.name = name;
+        tp.startDate = startDate;
+        tp.endDate = endDate;
+        
+        // Insert into array
+        tpArray = [tpArray arrayByAddingObject:tp];
+    }
+    
+    NSLog(@"getClosedTrainingPlanRecords: returned %d training plans", tpArray.count);
+    
+    [db close];
+    
+    return tpArray;
+}
+
 @end

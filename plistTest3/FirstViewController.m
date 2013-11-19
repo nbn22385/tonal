@@ -9,6 +9,7 @@
 #import "FirstViewController.h"
 #import "MasterViewController.h"
 #import "FMDBDataAccess.h"
+#import "HistoryViewController.h"
 
 @interface FirstViewController ()
 - (void)configureView;
@@ -82,24 +83,35 @@
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     
     if([[segue identifier] isEqualToString:@"FirstSegue"]){
-        MasterViewController *masterViewController = [segue destinationViewController];
+        //MasterViewController *masterViewController = [segue destinationViewController];
 
         //masterViewController.trainingPlanId = ?;
         
     }
+    
+    if([[segue identifier] isEqualToString:@"History"]){
+        // Does not get hit
+        NSLog(@"History segue triggered");
+        HistoryViewController *historyViewController = [[HistoryViewController alloc] init];
+        historyViewController = [segue destinationViewController];
+    }
+
 }
 
 #pragma mark - Tab bar methods
 
 - (void)tabBar:(UITabBar *)tabBar didSelectItem:(UITabBarItem *)item {
     NSLog(@"didSelectItem: %d", item.tag);
-    
+    HistoryViewController *historyViewController = [[HistoryViewController alloc] init];
+
     switch (item.tag) {
         case 0:
             // Home
             break;
         case 1:
             // History
+            //HistoryViewController *hvc;
+            //[self presentViewController:historyViewController animated:YES completion:nil];
             [self performSegueWithIdentifier:@"History" sender:nil];
             break;
         case 2:
@@ -107,6 +119,7 @@
             break;
         case 3:
             // Settings
+            [self performSegueWithIdentifier:@"Settings" sender:nil];
             break;
         default:
             break;

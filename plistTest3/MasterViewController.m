@@ -19,8 +19,7 @@
 @end
 
 @implementation MasterViewController
-@synthesize myItems, musclePlistArray, cardioPlistArray; //muscleGroupsArray, cardioGroupsArray;
-@synthesize muscleGroupDict, cardioGroupDict;
+@synthesize myItems;
 @synthesize categoryArray1,categoryArray2;
 
 - (void)awakeFromNib
@@ -148,8 +147,6 @@
         
         NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
         
-        // Send muscleGroupDict to the next table view screen
-        //NSDictionary *selectedItem;
         NSString *selectedGroup;
         
         switch ([indexPath section]) {

@@ -8,12 +8,15 @@
 
 #import "HistoryViewController.h"
 #import "FMDBDataAccess.h"
+#import "TrainingPlanRecord.h"
 
 @interface HistoryViewController ()
 
 @end
 
 @implementation HistoryViewController
+
+@synthesize items;
 
 - (id)initWithStyle:(UITableViewStyle)style
 {
@@ -27,13 +30,22 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    self.navigationItem.title = @"History";
 
+    self.items = [self getClosedTrainingPlanRecords];
+    
+    
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
  
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
 }
+
+-(IBAction)dismiss:(id)sender {
+    [[self presentingViewController] dismissViewControllerAnimated:YES completion:nil];
+}
+
 
 - (void)didReceiveMemoryWarning
 {
@@ -47,14 +59,14 @@
 {
 #warning Potentially incomplete method implementation.
     // Return the number of sections.
-    return 0;
+    return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
 #warning Incomplete method implementation.
     // Return the number of rows in the section.
-    return 0;
+    return self.items.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -62,7 +74,23 @@
     static NSString *CellIdentifier = @"Cell";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
     
-    // Configure the cell...
+    // SetRecord for cell population
+    TrainingPlanRecord* tp = [TrainingPlanRecord alloc];
+    tp = [items objectAtIndex:indexPath.row];
+    
+    // Set up the cell
+    cell.textLabel.font = [UIFont fontWithName:@"Helvetica" size:14];
+    cell.detailTextLabel.font = [UIFont fontWithName:@"Helvetica" size:12];
+    
+    NSString *startDateString = [NSDateFormatter localizedStringFromDate:[tp startDate]
+                                                          dateStyle:NSDateFormatterShortStyle
+                                                          timeStyle:NSDateFormatterShortStyle];
+    NSString *endDateString = [NSDateFormatter localizedStringFromDate:[tp endDate]
+                                                               dateStyle:NSDateFormatterShortStyle
+                                                               timeStyle:NSDateFormatterShortStyle];
+    // Set the cell text
+    cell.textLabel.text = [NSString stringWithFormat:@"%@ - %@",startDateString, endDateString];
+    cell.detailTextLabel.text = [tp name];
     
     return cell;
 }
@@ -117,5 +145,19 @@
 }
 
  */
+
+///
+/// Database function to return closed training plans
+/// @return Array of trainingPlanRecord objects
+///
+-(NSArray*)getClosedTrainingPlanRecords
+{
+    FMDBDataAccess *db = [[FMDBDataAccess alloc] init];
+    NSArray* result = [NSArray array];
+    
+    result = [db getClosedTrainingPlanRecords];
+    
+    return result;
+}
 
 @end

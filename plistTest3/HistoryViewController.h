@@ -10,4 +10,8 @@
 
 @interface HistoryViewController : UITableViewController
 
+@property (strong, nonatomic) NSArray *items;
+
+-(IBAction)dismiss:(id)sender;
+
 @end

@@ -37,6 +37,8 @@
 		9EF09E2618307A77002A12E8 /* setting2.png in Resources */ = {isa = PBXBuildFile; fileRef = 9EF09E2418307A77002A12E8 /* setting2.png */; };
 		9EF2E37018394B210076B36B /* SetRecord.m in Sources */ = {isa = PBXBuildFile; fileRef = 9EF2E36F18394B210076B36B /* SetRecord.m */; };
 		9EF2E3741839A2CF0076B36B /* HistoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9EF2E3731839A2CF0076B36B /* HistoryViewController.m */; };
+		9EF2E377183B0CBA0076B36B /* SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9EF2E376183B0CBA0076B36B /* SettingsViewController.m */; };
+		9EF2E37A183B12FF0076B36B /* TrainingPlanRecord.m in Sources */ = {isa = PBXBuildFile; fileRef = 9EF2E379183B12FF0076B36B /* TrainingPlanRecord.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -84,6 +86,10 @@
 		9EF2E36F18394B210076B36B /* SetRecord.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SetRecord.m; path = plistTest3/SetRecord.m; sourceTree = "<group>"; };
 		9EF2E3721839A2CF0076B36B /* HistoryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HistoryViewController.h; sourceTree = "<group>"; };
 		9EF2E3731839A2CF0076B36B /* HistoryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HistoryViewController.m; sourceTree = "<group>"; };
+		9EF2E375183B0CBA0076B36B /* SettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingsViewController.h; sourceTree = "<group>"; };
+		9EF2E376183B0CBA0076B36B /* SettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsViewController.m; sourceTree = "<group>"; };
+		9EF2E378183B12FF0076B36B /* TrainingPlanRecord.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TrainingPlanRecord.h; sourceTree = "<group>"; };
+		9EF2E379183B12FF0076B36B /* TrainingPlanRecord.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TrainingPlanRecord.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -171,6 +177,8 @@
 				9E6300ED1818C0AC009827B1 /* ExerciseEntryViewController.m */,
 				9EF2E3721839A2CF0076B36B /* HistoryViewController.h */,
 				9EF2E3731839A2CF0076B36B /* HistoryViewController.m */,
+				9EF2E375183B0CBA0076B36B /* SettingsViewController.h */,
+				9EF2E376183B0CBA0076B36B /* SettingsViewController.m */,
 				9E5E854118274A2F0064B44E /* FMDBDataAccess.h */,
 				9E5E854218274A2F0064B44E /* FMDBDataAccess.m */,
 				9EA4D2A617EA76310067AFB7 /* Supporting Files */,
@@ -204,6 +212,8 @@
 			children = (
 				9EF2E36E18394B210076B36B /* SetRecord.h */,
 				9EF2E36F18394B210076B36B /* SetRecord.m */,
+				9EF2E378183B12FF0076B36B /* TrainingPlanRecord.h */,
+				9EF2E379183B12FF0076B36B /* TrainingPlanRecord.m */,
 			);
 			name = DataObjects;
 			path = ..;
@@ -287,6 +297,7 @@
 				9EA4D2B017EA76310067AFB7 /* AppDelegate.m in Sources */,
 				9EA4D2BC17EA76310067AFB7 /* MasterViewController.m in Sources */,
 				9E5E8538182200010064B44E /* FMDatabase.m in Sources */,
+				9EF2E37A183B12FF0076B36B /* TrainingPlanRecord.m in Sources */,
 				9EF2E3741839A2CF0076B36B /* HistoryViewController.m in Sources */,
 				9E5E854318274A2F0064B44E /* FMDBDataAccess.m in Sources */,
 				9EF2E37018394B210076B36B /* SetRecord.m in Sources */,
@@ -294,6 +305,7 @@
 				9EA4D2BF17EA76310067AFB7 /* FirstViewController.m in Sources */,
 				9E5E85441830573D0064B44E /* FirstViewController.h in Sources */,
 				9EA4D2C917EA9CC00067AFB7 /* ExerciseViewController.m in Sources */,
+				9EF2E377183B0CBA0076B36B /* SettingsViewController.m in Sources */,
 				9E5E8539182200010064B44E /* FMResultSet.m in Sources */,
 				9E6300EE1818C0AC009827B1 /* ExerciseEntryViewController.m in Sources */,
 			);
