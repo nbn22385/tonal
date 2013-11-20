@@ -8,6 +8,14 @@
 
 #import <UIKit/UIKit.h>
 
-@interface SettingsViewController : UIViewController
+@interface SettingsViewController : UIViewController {
+    IBOutlet UISegmentedControl *segmentedControl;
+}
+
+@property NSUserDefaults *defaults;
+@property NSString *unitString;
+
+- (IBAction)changeValue:(id)sender;
+
 
 @end

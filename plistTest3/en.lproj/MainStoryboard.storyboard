@@ -116,6 +116,9 @@
                                     <segment title="U.S."/>
                                     <segment title="Metric"/>
                                 </segments>
+                                <connections>
+                                    <action selector="changeValue:" destination="I51-0G-UOj" eventType="valueChanged" id="LwF-Is-b7T"/>
+                                </connections>
                             </segmentedControl>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Units:" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Kxs-Y7-UHB">
                                 <rect key="frame" x="129" y="174" width="63" height="21"/>
@@ -127,6 +130,9 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
+                    <connections>
+                        <outlet property="segmentedControl" destination="EFh-aZ-MRR" id="pnb-Al-Wxd"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="xs5-Tz-ibR" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

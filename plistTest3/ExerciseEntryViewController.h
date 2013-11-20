@@ -28,6 +28,7 @@
 
 @property (retain, nonatomic) IBOutlet UITableView *setsTable;
 
+@property NSUserDefaults *defaults;
 
 // IBActions
 - (IBAction)addSetButtonPressed:(id)sender;

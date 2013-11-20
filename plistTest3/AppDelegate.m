@@ -19,9 +19,9 @@
     NSArray *documentPaths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     NSString *documentDir = [documentPaths objectAtIndex:0];
 
-    self.databasePath = [documentDir stringByAppendingPathComponent:self.databaseName];
+    databasePath = [documentDir stringByAppendingPathComponent:self.databaseName];
     
-    self.database = [FMDatabase databaseWithPath:self.databasePath];
+    self.database = [FMDatabase databaseWithPath:databasePath];
     
     //[self deleteDatabaseFromDocuments];
     [self copyDatabaseToDocuments];
@@ -33,32 +33,30 @@
 
 -(void) copyDatabaseToDocuments
 {
-    BOOL success;
+    BOOL exists;
    
     NSFileManager *fileManager = [NSFileManager defaultManager];
-    success = [fileManager fileExistsAtPath:self.databasePath];
+    exists = [fileManager fileExistsAtPath:databasePath];
     
-    if(success)
+    if(exists)
     {
         NSLog(@"DB already exists in documents directory");
-        return;
     }
     else
     {
         NSLog(@"DB not found in documents directory!");
-    }
-
-    
-    NSString *databasePathFromApp = [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:self.databaseName];
-    
-    BOOL copySuccess = [fileManager copyItemAtPath:databasePathFromApp toPath:self.databasePath error:nil];
-    if (copySuccess)
-    {
-        NSLog(@"DB copied to documents directory");
-    }
-    else
-    {
-        NSLog(@"DB not copied to documents directory!");
+        
+        NSString *databasePathFromApp = [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:self.databaseName];
+        
+        BOOL copySuccess = [fileManager copyItemAtPath:databasePathFromApp toPath:databasePath error:nil];
+        if (copySuccess)
+        {
+            NSLog(@"DB copied to documents directory");
+        }
+        else
+        {
+            NSLog(@"DB not copied to documents directory!");
+        }
     }
     
 }
