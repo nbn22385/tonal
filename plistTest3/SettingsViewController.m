@@ -34,8 +34,6 @@
     defaults = [NSUserDefaults standardUserDefaults];
     
     // set the segmented control to the correct value
-    unitString = [defaults objectForKey:@"unit"];
-    
     segmentedControl.selectedSegmentIndex = [defaults integerForKey:@"unitSelection"];
 
 }
@@ -64,8 +62,7 @@
     
     NSInteger i = [sender selectedSegmentIndex];
     [defaults setInteger:i forKey:@"unitSelection"];
-    
-    [defaults setObject:value forKey:@"unit"];
+    [defaults setObject:value forKey:@"unitString"];
     [defaults synchronize];
     
     NSLog(@"Saved units as: %@", value);

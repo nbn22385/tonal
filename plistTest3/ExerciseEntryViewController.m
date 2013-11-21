@@ -16,8 +16,8 @@
 
 @implementation ExerciseEntryViewController
 
-@synthesize exerciseName, infoLabel;
-//@synthesize hasSetsReps;
+@synthesize exerciseName, exerciseId, exerciseRecordId, infoLabel;
+@synthesize hasSetsReps, unitName;
 @synthesize repLabel, repTextField, weightLabel, weightTextField, addSetButton;
 @synthesize thirdLabel, thirdTextField;
 @synthesize setsTable, items;
@@ -55,27 +55,27 @@
     [self configureControls];
     
     // Set the exercise id
-    self.exerciseId = [self getIdForExerciseName];
+    exerciseId = [self getIdForExerciseName];
     
     // Set the exercise record id
-    self.exerciseRecordId = [self getCurrentExerciseRecordId];
+    exerciseRecordId = [self getCurrentExerciseRecordId];
     
     // Set up sets tableview
     setsTable.dataSource = self;
     setsTable.delegate = self;
-    items = [self getSetRecords:self.exerciseRecordId];
+    items = [self getSetRecords:exerciseRecordId];
 
 }
 
 - (void)configureControls
 {
     
-    if (self.hasSetsReps)
+    if (hasSetsReps)
     {
         // Show rep, weight inputs
         [repTextField setHidden:FALSE];
         [weightTextField setHidden:FALSE];
-        [weightTextField setPlaceholder:[self.unitName capitalizedString]];
+        [weightTextField setPlaceholder:[unitName capitalizedString]];
         [repLabel setHidden:FALSE];
         [weightLabel setHidden:FALSE];
         [addSetButton setTitle:@"Add Set" forState:UIControlStateNormal];
@@ -89,10 +89,10 @@
     {
         // Show secondary input
         [thirdTextField setHidden:FALSE];
-        [thirdTextField setPlaceholder:[self.unitName capitalizedString]];
+        [thirdTextField setPlaceholder:[unitName capitalizedString]];
         [thirdLabel setHidden:FALSE];
         [addSetButton setTitle:@"Add Activity" forState:UIControlStateNormal];
-        //thirdLabel.text = [self.unitName capitalizedString];
+        //thirdLabel.text = [unitName capitalizedString];
 
         // Hide rep, weight inputs
         [repTextField setHidden:TRUE];
@@ -124,29 +124,33 @@
     [weightTextField resignFirstResponder];
     [thirdTextField resignFirstResponder];
     
-    // Check if an exercise record with this name/id exists for this training plan
-    if (self.exerciseRecordId == 0) {
-        // Create an exercise record for this exercise
-        [self createExerciseRecord];
+    // Don't submit record unless reps field is populated
+    if (![repTextField.text isEqual: @""]) {
+    
+        // Check if an exercise record with this name/id exists for this training plan
+        if (exerciseRecordId == 0) {
+            // Create an exercise record for this exercise
+            [self createExerciseRecord];
+        }
+
+        // Get the exercise record id again (in case a new one was just created)
+        exerciseRecordId = [self getCurrentExerciseRecordId];
+        
+        // Get the values from the text fields
+        NSInteger reps = [repTextField.text integerValue];
+        NSInteger value = [weightTextField.text integerValue];
+        
+        // Add the new set record
+        [self addSetToExerciseRecord: exerciseRecordId: reps: value];
+        
+        // Clear the text fields
+        repTextField.text = @"";
+        weightTextField.text = @"";
+        
+        // Repopulate the set table
+        items = [self getSetRecords:exerciseRecordId];
+        [self.setsTable reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationAutomatic];
     }
-
-    // Get the exercise record id again (in case a new one was just created)
-    self.exerciseRecordId = [self getCurrentExerciseRecordId];
-    
-    NSInteger reps = [repTextField.text integerValue];
-    NSInteger value = [weightTextField.text integerValue];
-    
-    // Add the new set record
-    [self addSetToExerciseRecord: self.exerciseRecordId: reps: value];
-    
-    // Clear the text fields
-    repTextField.text = @"";
-    weightTextField.text = @"";
-    
-    // Repopulate the set table
-    items = [self getSetRecords:self.exerciseRecordId];
-    [self.setsTable reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationAutomatic];
-
 }
 
 #pragma mark Table view methods
@@ -195,9 +199,23 @@
 {
     FMDBDataAccess *db = [[FMDBDataAccess alloc] init];
 
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    NSString *unitString = [defaults objectForKey:@"unitString"];
+    NSInteger i = [defaults integerForKey:@"unitSelection"];
     
-    self.hasSetsReps = [db hasSetsReps:(exerciseName)];
-    self.unitName = [db getUnitName:(exerciseName)];
+    hasSetsReps = [db hasSetsReps:(exerciseName)];
+    unitName = [db getUnitName:(exerciseName)];
+    
+    // If the user wants metric, change the placeholder text
+    if ([unitString isEqualToString:@"Metric"]) {
+        if ([unitName isEqualToString:@"pounds"]) {
+            unitName = @"kilograms";
+        }
+        if ([unitName isEqualToString:@"miles"]) {
+            unitName = @"kilometers";
+        }
+    }
+
 }
 
 -(NSInteger)getIdForExerciseName
@@ -213,7 +231,7 @@
     NSInteger id;
     FMDBDataAccess *db = [[FMDBDataAccess alloc] init];
     
-    id = [db getCurrentExerciseRecordId:self.exerciseId];
+    id = [db getCurrentExerciseRecordId:exerciseId];
     return id;
 }
 
@@ -221,7 +239,7 @@
 {
     FMDBDataAccess *db = [[FMDBDataAccess alloc] init];
 
-    NSInteger id = [db exerciseExistsInTrainingPlan:self.exerciseId];
+    NSInteger id = [db exerciseExistsInTrainingPlan:exerciseId];
     BOOL result = (id > 0) ? TRUE : FALSE;
     
     return result;
@@ -231,7 +249,7 @@
 {
     // need tp_parent_id, exercise_id
     FMDBDataAccess *db = [[FMDBDataAccess alloc] init];
-    BOOL result = [db createExerciseRecord:self.exerciseId];
+    BOOL result = [db createExerciseRecord:exerciseId];
     return result;
     
 }
@@ -259,7 +277,7 @@
     FMDBDataAccess *db = [[FMDBDataAccess alloc] init];
     NSArray* result = [NSArray array];
 
-    result = [db getSetRecords:self.exerciseRecordId];
+    result = [db getSetRecords:exerciseRecordId];
 
     return result;
 }

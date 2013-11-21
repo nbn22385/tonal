@@ -74,6 +74,12 @@
 
 }
 
+-(void) viewDidAppear:(BOOL)animated
+{
+    // Select the home tab
+    [myTabBar setSelectedItem:[myTabBar.items objectAtIndex:0]];
+}
+
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
@@ -110,12 +116,11 @@
             break;
         case 1:
             // History
-            //HistoryViewController *hvc;
-            //[self presentViewController:historyViewController animated:YES completion:nil];
             [self performSegueWithIdentifier:@"History" sender:nil];
             break;
         case 2:
             // Voice
+            //[self performSegueWithIdentifier:@"Voice" sender:nil];
             break;
         case 3:
             // Settings
