@@ -108,7 +108,7 @@
 
 - (void)tabBar:(UITabBar *)tabBar didSelectItem:(UITabBarItem *)item {
     NSLog(@"didSelectItem: %d", item.tag);
-    HistoryViewController *historyViewController = [[HistoryViewController alloc] init];
+    //HistoryViewController *historyViewController = [[HistoryViewController alloc] init];
 
     switch (item.tag) {
         case 0:
@@ -120,7 +120,7 @@
             break;
         case 2:
             // Voice
-            //[self performSegueWithIdentifier:@"Voice" sender:nil];
+            [self performSegueWithIdentifier:@"Voice" sender:nil];
             break;
         case 3:
             // Settings
