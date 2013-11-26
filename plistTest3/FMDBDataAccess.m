@@ -446,4 +446,36 @@
     return tpArray;
 }
 
+-(NSArray*)getAllExerciseNames
+{
+  db = [FMDatabase databaseWithPath:[self getDatabasePath]];
+  [db open];
+  FMResultSet *results;
+  
+  NSInteger myId;
+  NSString* myName;
+  
+  NSMutableArray *stocks = [[NSMutableArray alloc] init];
+  NSMutableDictionary *stock;
+  
+  results = [db executeQuery:[NSString stringWithFormat:@"select id, exercise_name from exercises"]];
+  
+  while([results next])
+  {
+    myId = [results intForColumn:@"id"];
+    myName = [results stringForColumn:@"exercise_name"];
+    
+    stock = [NSMutableDictionary dictionary];
+    
+    [stock setObject:[NSNumber numberWithInt: myId]
+                      forKey:@"id"];
+    [stock setObject:myName
+              forKey:@"exercise_name"];
+    
+    [stocks addObject:stock];
+    
+  }
+  [db close];
+  return stocks;
+}
 @end
