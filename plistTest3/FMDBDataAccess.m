@@ -453,7 +453,7 @@
   FMResultSet *results;
   
   NSInteger myId;
-  NSString* myName;
+  NSString* myName; 
   
   NSMutableArray *stocks = [[NSMutableArray alloc] init];
   NSMutableDictionary *stock;
