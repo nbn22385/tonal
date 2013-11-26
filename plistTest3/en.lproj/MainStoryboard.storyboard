@@ -2,7 +2,7 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="4514" systemVersion="13A603" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="3">
     <dependencies>
         <deployment defaultVersion="1552" identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3746"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3747"/>
     </dependencies>
     <scenes>
         <!--First View Controller - First-->
@@ -110,11 +110,31 @@
                         <outlet property="settingsTabBarItem" destination="hVN-yA-o7O" id="7C9-WB-2bo"/>
                         <segue destination="E7X-GJ-P7u" kind="push" identifier="History" id="ucS-90-gtP"/>
                         <segue destination="I51-0G-UOj" kind="push" identifier="Settings" id="XBV-Cw-tTI"/>
+                        <segue destination="n8T-bw-2G3" kind="push" identifier="Voice" id="dIm-Mv-dy3"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="kpP-HT-xfW" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1084" y="-298"/>
+        </scene>
+        <!--Voice View Controller-->
+        <scene sceneID="47t-qb-tzv">
+            <objects>
+                <viewController id="n8T-bw-2G3" customClass="voiceViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="4wv-6R-Fr7"/>
+                        <viewControllerLayoutGuide type="bottom" id="yTO-eZ-tHH"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="Pez-eq-iJ2">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="X1c-nh-ikd"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ycX-j5-EVr" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="916" y="381"/>
         </scene>
         <!--Settings View Controller-->
         <scene sceneID="iYh-I8-7TT">
@@ -166,7 +186,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="xs5-Tz-ibR" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="890" y="401"/>
+            <point key="canvasLocation" x="1380" y="383"/>
         </scene>
         <!--History View Controller-->
         <scene sceneID="SIU-4X-Gbf">
@@ -197,7 +217,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="8WL-XB-jvf" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1468" y="338"/>
+            <point key="canvasLocation" x="1808" y="366"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="11">
