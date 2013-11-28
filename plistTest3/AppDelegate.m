@@ -22,7 +22,8 @@
     databasePath = [documentDir stringByAppendingPathComponent:self.databaseName];
     
     self.database = [FMDatabase databaseWithPath:databasePath];
-    
+  
+    // Comment out deleteDatabaseFromDocuments if you want to persist your data across runs
     //[self deleteDatabaseFromDocuments];
     [self copyDatabaseToDocuments];
     

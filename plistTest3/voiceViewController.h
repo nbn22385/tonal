@@ -8,6 +8,10 @@
 
 #import <UIKit/UIKit.h>
 
-@interface voiceViewController : UIViewController
+@interface voiceViewController : UIViewController <UITextFieldDelegate, UITextViewDelegate>
+{
+  IBOutlet UITextView *inputExerciseField;
+}
+//-(IBAction)getInputSentence:(id)sender;
 
 @end

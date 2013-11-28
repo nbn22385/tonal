@@ -12,7 +12,7 @@
 
 @end
 
-@implementation voiceViewController
+@implementation voiceViewController 
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -33,6 +33,39 @@
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (void)textViewDidBeginEditing:(UITextView *)textView
+{
+  static BOOL firstFlag = YES;
+//  
+//  [textView isFirstResponder];
+  if(firstFlag){   [textView setText:@""]; firstFlag = NO; }
+
+  NSLog(@"YES");
+}
+
+- (BOOL)textViewShouldReturn:(UITextView *)textView
+{
+  
+  NSLog(@"Here is the text: %@", [textView text]);
+  
+  [textView resignFirstResponder];
+  
+  return YES;
+}
+
+- (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
+{
+  NSLog(@"touch");
+  [[self view] endEditing:YES];
+}
+
+- (BOOL)textViewShouldEndEditing:(UITextView *)textView
+{
+  NSLog(@"touch me");
+  
+  return YES;
 }
 
 @end

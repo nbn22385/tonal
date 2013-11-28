@@ -128,9 +128,25 @@
                     <view key="view" contentMode="scaleToFill" id="Pez-eq-iJ2">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" text="Click Here to Enter Exercise" translatesAutoresizingMaskIntoConstraints="NO" id="tUE-sb-Tye">
+                                <rect key="frame" x="37" y="69" width="247" height="163"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <accessibility key="accessibilityConfiguration" hint="llll"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                <connections>
+                                    <outlet property="delegate" destination="n8T-bw-2G3" id="eDQ-Zd-cgD"/>
+                                </connections>
+                            </textView>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" id="X1c-nh-ikd"/>
+                    <connections>
+                        <outlet property="inputExerciseField" destination="tUE-sb-Tye" id="eP6-om-EdR"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ycX-j5-EVr" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
