@@ -7,19 +7,24 @@
 //
 
 #import "voiceViewController.h"
-
-@interface voiceViewController ()
-
-@end
+#import "FMDBDataAccess.h"
+#import "JNSKnowledgeAgent.h"
+#import "JNSActions.h"
 
 @implementation voiceViewController 
+{
+
+}
+@synthesize _action;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
+
     }
+  
     return self;
 }
 
@@ -37,35 +42,73 @@
 
 - (void)textViewDidBeginEditing:(UITextView *)textView
 {
-  static BOOL firstFlag = YES;
-//  
-//  [textView isFirstResponder];
-  if(firstFlag){   [textView setText:@""]; firstFlag = NO; }
+  NSLog(@"textViewDidBeginEditing");
 
+  NSString *string = [textView text];
+  if ([string rangeOfString:@"Click Here"].location == NSNotFound) {
+    NSLog(@"string does not contain bla");
+  } else {
+    [textView setText:@""];
+  }
+  
   NSLog(@"YES");
 }
 
-- (BOOL)textViewShouldReturn:(UITextView *)textView
+
+-(void)dictationRecordingDidEnd
 {
+  NSLog(@"dictationRecordingDidEnd");
+
+}
+
+- (IBAction)addSetButtonPressed:(id)sender
+{
+  // Hide the keyboard
+  //[repTextField resignFirstResponder];
+  //[weightTextField resignFirstResponder];
+  //[thirdTextField resignFirstResponder];
   
-  NSLog(@"Here is the text: %@", [textView text]);
+  NSString *string = [inputExerciseField text];
+  if ([string rangeOfString:@"Click Here"].location == NSNotFound) {
+
+    if (![[inputExerciseField text] isEqualToString:@""])
+    {
+      [ self set_action: [[JNSActions alloc] initWithSentence:[inputExerciseField text]]];
+      
+      [[ self _action ] doThis];
+    }
+    else{
+      NSLog(@"nothing added nice try");
+    }
+  }
+  else{
+    NSLog(@"nothing new added nice try");
+  }
+
   
-  [textView resignFirstResponder];
-  
-  return YES;
 }
 
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
 {
-  NSLog(@"touch");
+  //[ self set_action: [[JNSActions alloc] initWithSentence:[inputExerciseField text]]];
+  //[[ self _action ] doThis];
+  
+  NSLog(@"touchesEnded");
   [[self view] endEditing:YES];
 }
 
 - (BOOL)textViewShouldEndEditing:(UITextView *)textView
 {
-  NSLog(@"touch me");
+  NSLog(@"textViewShouldEndEditing");
   
   return YES;
+}
+
+-(void)addSetToExerciseRecord:(NSInteger)erId :(NSInteger)reps :(NSInteger)value
+{
+  FMDBDataAccess *db = [[FMDBDataAccess alloc] init];
+  BOOL result = FALSE;
+  result = [db addSetToExerciseRecord: erId: reps: value];
 }
 
 @end

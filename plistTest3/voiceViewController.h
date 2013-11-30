@@ -7,11 +7,17 @@
 //
 
 #import <UIKit/UIKit.h>
+@class JNSActions;
 
 @interface voiceViewController : UIViewController <UITextFieldDelegate, UITextViewDelegate>
 {
   IBOutlet UITextView *inputExerciseField;
+
 }
+
+@property (nonatomic) JNSActions *_action;
+
 //-(IBAction)getInputSentence:(id)sender;
+- (IBAction)addSetButtonPressed:(id)sender;
 
 @end

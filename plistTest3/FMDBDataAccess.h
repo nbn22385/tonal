@@ -33,5 +33,6 @@
 
 -(NSArray*)getSetRecords:(NSInteger)forErId;
 -(NSArray*)getClosedTrainingPlanRecords;
+-(NSArray*)getAllExerciseNames;
 
 @end
