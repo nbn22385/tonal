@@ -15,7 +15,7 @@
 {
 
 }
-@synthesize _action;
+@synthesize _action, _addedRecord;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -69,13 +69,14 @@
   //[thirdTextField resignFirstResponder];
   
   NSString *string = [inputExerciseField text];
-  if ([string rangeOfString:@"Click Here"].location == NSNotFound) {
+  if ([string rangeOfString:@"Click Here"].location == NSNotFound || [string rangeOfString:@"Added Exercise to Training Plan."].location == NSNotFound)
+  {
 
     if (![[inputExerciseField text] isEqualToString:@""])
     {
       [ self set_action: [[JNSActions alloc] initWithSentence:[inputExerciseField text]]];
       
-      [[ self _action ] doThis];
+      [self set_addedRecord:[[ self _action ] doThis]];
     }
     else{
       NSLog(@"nothing added nice try");
@@ -85,6 +86,10 @@
     NSLog(@"nothing new added nice try");
   }
 
+  if([self _addedRecord])
+  {
+    [inputExerciseField setText:@"Added Exercise to Training Plan."];
+  }
   
 }
 

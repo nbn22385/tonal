@@ -14,8 +14,10 @@
   IBOutlet UITextView *inputExerciseField;
 
 }
+@property(nonatomic) BOOL _addedRecord;
 
 @property (nonatomic) JNSActions *_action;
+
 
 //-(IBAction)getInputSentence:(id)sender;
 - (IBAction)addSetButtonPressed:(id)sender;

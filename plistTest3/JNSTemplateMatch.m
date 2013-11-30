@@ -149,6 +149,12 @@
   newPattern = @"<$1/Noun>";
   newSentence = [self replacePattern:pattern inSentence:sentence with:newPattern];
   
+  // Fix the reps getting spelled as wraps
+  pattern    = @"<(wrap(s)?)/([a-zA-Z]+)>";
+  newPattern = @"<rep/Noun>";
+  newSentence = [self replacePattern:pattern inSentence:sentence with:newPattern];
+  
+  
   // Fix numbers that are spelled out
   NSArray *wordNumList = [NSArray arrayWithObjects:@"zero", @"one", @"two", @"three", @"four", @"five", @"six", @"seven", @"eight", @"nine", @"ten", @"eleven",@"twelve",@"thirteen",@"fourteen",@"fifteen",@"sixteen",@"seventeen",@"eighteen",@"nineteen",@"twenty", nil];
   

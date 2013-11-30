@@ -13,7 +13,7 @@
 @interface JNSActions : NSObject
 
 @property(nonatomic)JNSTemplateMatch *_templateMatcher;
-
+@property(nonatomic) BOOL _addedRecord;
 @property(nonatomic) BOOL _isStrengthTraining;
 @property(nonatomic) NSUInteger _exerciseID;
 @property  NSInteger _exerciseRecordID;
@@ -23,5 +23,5 @@
 -(id)initWithSentence:(NSString *)sentence;
 
 -(void)decideExerciseCategory;
--(void)doThis;
+-(BOOL)doThis;
 @end

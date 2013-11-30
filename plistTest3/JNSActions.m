@@ -10,7 +10,7 @@
 #import "JNSTemplateMatch.h"
 #import "FMDBDataAccess.h"
 @implementation JNSActions
-@synthesize _templateMatcher, _isStrengthTraining, _exerciseID, _exerciseRecordID;
+@synthesize _templateMatcher, _isStrengthTraining, _exerciseID, _exerciseRecordID, _addedRecord;
 
 
 -(id)initWithSentenceNumber:(NSUInteger)index
@@ -135,19 +135,31 @@
   }
 }
 
--(void)doThis
+-(BOOL)doThis
 {
+  [self set_addedRecord: NO];
+  
   [self decideExerciseCategory];
   
-  if ([self rule_01]) {
+  if ([self rule_01])
+  {
     [self actions_01];
+    return [self _addedRecord];
   }
-  else if ([self rule_02]) {
+  else if ([self rule_02])
+  {
       [self actions_02];
+    return [self _addedRecord];
+
   }
-  else if ([self rule_03]) {
+  else if ([self rule_03])
+  {
     [self actions_03];
+    return [self _addedRecord];
+
   }
+  return [self _addedRecord];
+
 }
 
 -(BOOL)isThereASetHint
@@ -184,11 +196,13 @@
   }
 }
 
--(void)addSetToExerciseRecord:(NSInteger)erId :(NSInteger)reps :(NSInteger)value
+-(BOOL)addSetToExerciseRecord:(NSInteger)erId :(NSInteger)reps :(NSInteger)value
 {
   FMDBDataAccess *db = [[FMDBDataAccess alloc] init];
   BOOL result = FALSE;
+
   result = [db addSetToExerciseRecord: erId: reps: value];
+  return result;
 }
 
 -(NSInteger)getCurrentExerciseRecord
@@ -246,7 +260,8 @@
 //    NSInteger value = [weightTextField.text integerValue];
     
     // Add the new set record
-    [self addSetToExerciseRecord: _exerciseRecordID: reps: value];
+    [self set_addedRecord: [self addSetToExerciseRecord: _exerciseRecordID: reps: value]];
+    
     
     // Clear the text fields
 //    repTextField.text = @"";
@@ -255,6 +270,10 @@
     // Repopulate the set table
    // items = [self getSetRecords:exerciseRecordId];
    // [self.setsTable reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationAutomatic];
+  }
+  else
+  {
+    [self set_addedRecord: NO];
   }
 }
 
