@@ -35,4 +35,6 @@
 -(NSArray*)getClosedTrainingPlanRecords;
 -(NSArray*)getAllExerciseNames;
 
+-(NSArray*)getExercisesForTrainingPlan:(NSInteger)withId;
+
 @end

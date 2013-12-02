@@ -24,7 +24,7 @@
     self.database = [FMDatabase databaseWithPath:databasePath];
   
     // Comment out deleteDatabaseFromDocuments if you want to persist your data across runs
-    [self deleteDatabaseFromDocuments];
+    //[self deleteDatabaseFromDocuments];
     [self copyDatabaseToDocuments];
     
     // Override point for customization after application launch.

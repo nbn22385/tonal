@@ -12,6 +12,7 @@
 
 #import "SetRecord.h"
 #import "TrainingPlanRecord.h"
+#import "ExerciseRecord.h"
 
 @implementation FMDBDataAccess
 {}
@@ -363,7 +364,7 @@
 {
     NSArray* srArray = [NSArray array];
     
-    NSInteger numReps, value;
+    NSInteger erParentId, numReps, value;
     NSString* dateStr;
     NSDate* date;
     
@@ -372,12 +373,13 @@
     FMResultSet *results;
     
     //results = [db executeQuery:@"select num_reps, value, timestamp from set_records where er_parent_id = %d", forErId];
-    results = [db executeQuery:[NSString stringWithFormat:@"select num_reps, value, timestamp from set_records where er_parent_id = %d",forErId]];
+    results = [db executeQuery:[NSString stringWithFormat:@"select er_parent_id, num_reps, value, timestamp from set_records where er_parent_id = %d",forErId]];
 
     while([results next])
     {
         SetRecord* sr = [SetRecord alloc];
 
+        erParentId = [results intForColumn:@"er_parent_id"];
         numReps = [results intForColumn:@"num_reps"];
         value = [results intForColumn:@"value"];
         dateStr = [results stringForColumn:@"timestamp"];
@@ -388,6 +390,7 @@
         date = [dateFormat dateFromString:dateStr];
         
         // Fill the SetRecord object
+        sr.erParentId = erParentId;
         sr.numReps = numReps;
         sr.value = value;
         sr.date = date;
@@ -406,7 +409,7 @@
 -(NSArray*)getClosedTrainingPlanRecords
 {
     NSArray* tpArray = [NSArray array];
-
+    NSInteger tpId, isOpen;
     NSString *startDateStr, *endDateStr, *name;
     NSDate *startDate, *endDate;
     
@@ -414,15 +417,18 @@
     [db open];
     FMResultSet *results;
     
-    results = [db executeQuery:[NSString stringWithFormat:@"select name, start_date, end_date from training_plan where is_open = 0"]];
+    results = [db executeQuery:[NSString stringWithFormat:
+                                @"select id, name, start_date, end_date, is_open from training_plan where is_open = 0 or is_open = 1"]]; // show all for now
     
     while([results next])
     {
         TrainingPlanRecord* tp = [TrainingPlanRecord alloc];
-        
+      
+        tpId = [results intForColumn:@"id"];
         name = [results stringForColumn:@"name"];
         startDateStr = [results stringForColumn:@"start_date"];
         endDateStr = [results stringForColumn:@"end_date"];
+        isOpen = [results intForColumn:@"is_open"];
 
         NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
         [dateFormat setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
@@ -431,10 +437,12 @@
         endDate = [dateFormat dateFromString:endDateStr];
 
         // Fill the SetRecord object
+        tp.tpId = tpId;
         tp.name = name;
         tp.startDate = startDate;
         tp.endDate = endDate;
-        
+        tp.isOpen = isOpen;
+      
         // Insert into array
         tpArray = [tpArray arrayByAddingObject:tp];
     }
@@ -477,5 +485,45 @@
   }
   [db close];
   return stocks;
+}
+
+-(NSArray*)getExercisesForTrainingPlan:(NSInteger)withId
+{
+  NSArray* erArray = [[NSArray array] init];
+  
+  NSInteger erId, tpParentId, exerciseId;
+  NSString *exerciseName;
+  
+  db = [FMDatabase databaseWithPath:[self getDatabasePath]];
+  [db open];
+  FMResultSet *results;
+  
+  results = [db executeQuery:[NSString stringWithFormat:
+                              @"select er.id, er.tp_parent_id, er.exercise_id, ex.exercise_name from exercise_record er, exercises ex where tp_parent_id = %d and er.exercise_id = ex.id", withId]];
+  
+  while([results next])
+  {
+    ExerciseRecord *er = [[ExerciseRecord alloc] init];
+    
+    erId = [results intForColumn:@"id"];
+    tpParentId = [results intForColumn:@"tp_parent_id"];
+    exerciseId = [results intForColumn:@"exercise_id"];
+    exerciseName = [results stringForColumn:@"exercise_name"];
+    
+    er.erId = erId;
+    er.tpParentId = tpParentId;
+    er.exerciseId = exerciseId;
+    er.exerciseName = exerciseName;
+    
+    // Insert into array
+    erArray = [erArray arrayByAddingObject:er];
+  }
+  
+  NSLog(@"getExercisesForTrainingPlan: returned %d exercises for training plan id %d", erArray.count, withId);
+  
+  [db close];
+  
+  return erArray;
+  
 }
 @end

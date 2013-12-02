@@ -1,21 +1,20 @@
 //
-//  HistoryViewController.m
+//  HistorySetsViewController.m
 //  tonal
 //
-//  Created by Jeremy Ayala on 11/17/13.
+//  Created by JEREMY AYALA on 12/1/13.
 //  Copyright (c) 2013 nbn. All rights reserved.
 //
 
-#import "HistoryViewController.h"
+#import "HistorySetsViewController.h"
 #import "FMDBDataAccess.h"
-#import "TrainingPlanRecord.h"
-#import "HistoryExerciseViewController.h"
+#import "SetRecord.h"
 
-@interface HistoryViewController ()
+@interface HistorySetsViewController ()
 
 @end
 
-@implementation HistoryViewController
+@implementation HistorySetsViewController
 
 @synthesize items;
 
@@ -31,23 +30,16 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.navigationItem.title = @"History";
 
-    NSArray *arr = [self getClosedTrainingPlanRecords];
-    self.items = [[arr reverseObjectEnumerator] allObjects];
-
-  
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
  
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+  
+    // fill the items array with set records
+  items = [self getSetRecords:self.thisErId];
 }
-
--(IBAction)dismiss:(id)sender {
-    [[self presentingViewController] dismissViewControllerAnimated:YES completion:nil];
-}
-
 
 - (void)didReceiveMemoryWarning
 {
@@ -61,14 +53,14 @@
 {
 #warning Potentially incomplete method implementation.
     // Return the number of sections.
-    return 1;
+  return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
 #warning Incomplete method implementation.
     // Return the number of rows in the section.
-    return self.items.count;
+    return items.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -76,30 +68,12 @@
     static NSString *CellIdentifier = @"Cell";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
     
-    // SetRecord for cell population
-    TrainingPlanRecord* tp = [TrainingPlanRecord alloc];
-    tp = [items objectAtIndex:indexPath.row];
-    
-    // Set up the cell
-    cell.textLabel.font = [UIFont fontWithName:@"Helvetica" size:14];
-    cell.detailTextLabel.font = [UIFont fontWithName:@"Helvetica" size:12];
-    
-    NSString *startDateString = [NSDateFormatter localizedStringFromDate:[tp startDate]
-                                                          dateStyle:NSDateFormatterShortStyle
-                                                          timeStyle:NSDateFormatterShortStyle];
-    NSString *endDateString = [NSDateFormatter localizedStringFromDate:[tp endDate]
-                                                               dateStyle:NSDateFormatterShortStyle
-                                                               timeStyle:NSDateFormatterShortStyle];
-    // Set the cell text
-    if (tp.isOpen)
-    {
-      cell.textLabel.text = [NSString stringWithFormat:@"%@ [open]",startDateString];
-    }
-    else{
-      cell.textLabel.text = [NSString stringWithFormat:@"%@ - %@",startDateString, endDateString];
-    }
-    cell.detailTextLabel.text = [tp name];
-    
+    // Configure the cell...
+  SetRecord *sr = [[SetRecord alloc] init];
+  sr = [items objectAtIndex:indexPath.row];
+
+  cell.textLabel.text = [NSString stringWithFormat:@"%dx%d",[sr numReps], [sr value]];
+  
     return cell;
 }
 
@@ -142,44 +116,31 @@
 }
 */
 
-
+/*
 #pragma mark - Navigation
 
 // In a story board-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-  if ([[segue identifier] isEqualToString:@"HistoryExercises"]) {
-    
-    NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
-    
-    NSInteger *selectedTpId;
-    
-    TrainingPlanRecord *tp = [[TrainingPlanRecord alloc] init];
-    tp = [items objectAtIndex:indexPath.row];
-    
-    HistoryExerciseViewController *hevc = [segue destinationViewController];
-    
-    hevc.thisTpId = tp.tpId;
-    NSLog(@"Passing training plan id %d", tp.tpId);
-        
-  }
-
+    // Get the new view controller using [segue destinationViewController].
+    // Pass the selected object to the new view controller.
 }
 
+ */
 
 
 ///
-/// Database function to return closed training plans
-/// @return Array of trainingPlanRecord objects
+/// Database function to return sets for an exercise record
+/// @param Exercise record id
+/// @return Array of setRecord objects
 ///
--(NSArray*)getClosedTrainingPlanRecords
+-(NSArray*)getSetRecords:(NSInteger)forErId
 {
-    FMDBDataAccess *db = [[FMDBDataAccess alloc] init];
-    NSArray* result = [NSArray array];
-    
-    result = [db getClosedTrainingPlanRecords];
-    
-    return result;
+  FMDBDataAccess *db = [[FMDBDataAccess alloc] init];
+  NSArray* result = [NSArray array];
+  
+  result = [db getSetRecords:forErId];
+  
+  return result;
 }
-
 @end

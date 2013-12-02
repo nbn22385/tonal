@@ -10,6 +10,9 @@
 
 @interface TrainingPlanRecord : NSObject
 
+/// TP ID
+@property NSInteger tpId;
+
 /// Start Date of this training plan record
 @property NSDate* startDate;
 
@@ -19,4 +22,5 @@
 /// Name of this training plan record
 @property NSString* name;
 
+@property NSInteger isOpen;
 @end
