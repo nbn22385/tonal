@@ -46,6 +46,8 @@
 		C9B433B7184C37F700DCFFCB /* HistoryExerciseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C9B433B6184C37F700DCFFCB /* HistoryExerciseViewController.m */; };
 		C9B433BA184C3B0D00DCFFCB /* ExerciseRecord.m in Sources */ = {isa = PBXBuildFile; fileRef = C9B433B9184C3B0D00DCFFCB /* ExerciseRecord.m */; };
 		C9B433BD184C41C300DCFFCB /* HistorySetsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C9B433BC184C41C300DCFFCB /* HistorySetsViewController.m */; };
+		C9B433BF184C9D5600DCFFCB /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C9B433BE184C9D5600DCFFCB /* Images.xcassets */; };
+		C9B433C3184CA11E00DCFFCB /* Screen Shot 2013-12-02 at 5.51.03 AM.png in Resources */ = {isa = PBXBuildFile; fileRef = C9B433C0184CA01500DCFFCB /* Screen Shot 2013-12-02 at 5.51.03 AM.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -111,6 +113,8 @@
 		C9B433B9184C3B0D00DCFFCB /* ExerciseRecord.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ExerciseRecord.m; sourceTree = "<group>"; };
 		C9B433BB184C41C300DCFFCB /* HistorySetsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HistorySetsViewController.h; sourceTree = "<group>"; };
 		C9B433BC184C41C300DCFFCB /* HistorySetsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HistorySetsViewController.m; sourceTree = "<group>"; };
+		C9B433BE184C9D5600DCFFCB /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		C9B433C0184CA01500DCFFCB /* Screen Shot 2013-12-02 at 5.51.03 AM.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Screen Shot 2013-12-02 at 5.51.03 AM.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -152,6 +156,7 @@
 		9EA4D29317EA76310067AFB7 = {
 			isa = PBXGroup;
 			children = (
+				C9B433C0184CA01500DCFFCB /* Screen Shot 2013-12-02 at 5.51.03 AM.png */,
 				9E6300EA1818BA06009827B1 /* libsqlite3.dylib */,
 				9E5E853E18273D020064B44E /* Documents */,
 				9EA4D2A517EA76310067AFB7 /* plistTest3 */,
@@ -181,6 +186,7 @@
 		9EA4D2A517EA76310067AFB7 /* plistTest3 */ = {
 			isa = PBXGroup;
 			children = (
+				C9B433BE184C9D5600DCFFCB /* Images.xcassets */,
 				9EF2E37118394B2B0076B36B /* DataObjects */,
 				9E5E8540182747100064B44E /* FMDatabase */,
 				9EA4D2B717EA76310067AFB7 /* MainStoryboard.storyboard */,
@@ -308,6 +314,8 @@
 				9EA4D2AA17EA76310067AFB7 /* InfoPlist.strings in Resources */,
 				9EF09E1C18307098002A12E8 /* microphone.png in Resources */,
 				9EA4D2B217EA76310067AFB7 /* Default.png in Resources */,
+				C9B433C3184CA11E00DCFFCB /* Screen Shot 2013-12-02 at 5.51.03 AM.png in Resources */,
+				C9B433BF184C9D5600DCFFCB /* Images.xcassets in Resources */,
 				9EF09E1A183063B5002A12E8 /* tonal.png in Resources */,
 				9EA4D2B417EA76310067AFB7 /* Default@2x.png in Resources */,
 				9EA4D2B617EA76310067AFB7 /* Default-568h@2x.png in Resources */,
