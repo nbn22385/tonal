@@ -7,12 +7,9 @@
 //
 
 #import "JNSTemplateMatch.h"
+#import "JNSSentenceState.h"
 
 @implementation JNSTemplateMatch
-
-@synthesize _sentence, _brain;
-
-
 
 -(id)initDemoWithSentence:(NSUInteger)item
 {
@@ -40,17 +37,17 @@
   if(self)
   {
     // Init the variables used in the class
-    _sets   = [[NSMutableArray alloc] init];
-    _reps   = [[NSMutableArray alloc] init];
-    _pounds = [[NSMutableArray alloc] init];
+//    _sets   = [[NSMutableArray alloc] init];
+//    _reps   = [[NSMutableArray alloc] init];
+//    _pounds = [[NSMutableArray alloc] init];
+//    
+//    _laps   = [[NSMutableArray alloc] init];
+//    _miles  = [[NSMutableArray alloc] init];
     
-    _laps   = [[NSMutableArray alloc] init];
-    _miles  = [[NSMutableArray alloc] init];
-    
-    [self set_brain: [NSArray arrayWithObjects:_sets,_reps, _pounds, _laps, _miles, nil]];
+//    [self set_brain: [NSArray arrayWithObjects:_sets,_reps, _pounds, _laps, _miles, nil]];
 
     // Copy sentence to the class
-    [self set_sentence: [sentences objectAtIndex:item]];
+//    [self set_sentence: [sentences objectAtIndex:item]];
     
     
   }
@@ -58,37 +55,38 @@
 }
 
 
--(id)initWithSentence:(NSString *)sentence
+-(id)init
 {
   self = [super init];
   
   if(self)
   {
     // Init the variables used in the class
-    _sets   = [[NSMutableArray alloc] init];
-    _reps   = [[NSMutableArray alloc] init];
-    _pounds = [[NSMutableArray alloc] init];
+   // _sets   = [[NSMutableArray alloc] init];
+   // _reps   = [[NSMutableArray alloc] init];
+   // _pounds = [[NSMutableArray alloc] init];
 
-    _laps   = [[NSMutableArray alloc] init];
-    _miles  = [[NSMutableArray alloc] init];
+   // _laps   = [[NSMutableArray alloc] init];
+   // _miles  = [[NSMutableArray alloc] init];
     
-    _brain =[NSArray arrayWithObjects:_sets,_reps, _pounds, _laps, _miles, nil];
+    //_brain =[NSArray arrayWithObjects:_sets,_reps, _pounds, _laps, _miles, nil];
 
     // Copy sentence to the class
-    [self set_sentence:sentence];
+    //[self set_sentence:sentence];
     
     
   }
   return self;
 }
 
--(NSUInteger)getExerciseID
-{
-  
-  
-  return 1;
-}
+//-(NSUInteger)getExerciseID
+//{
+//  
+//  return 1;
+//}
 
+
+// return the corrected tagged sentence
 -(NSString *)createPOSWithSentence:(NSString *)sentence
 {
   
@@ -143,17 +141,15 @@
   NSString *newPattern = @"<$1/Number>";
   NSString *newSentence = [self replacePattern:pattern inSentence:sentence with:newPattern];
   
-  
   // Fix the reps getting tagged as verbs
   pattern    = @"<(rep(s)?)/([a-zA-Z]+)>";
   newPattern = @"<$1/Noun>";
-  newSentence = [self replacePattern:pattern inSentence:sentence with:newPattern];
+  newSentence = [self replacePattern:pattern inSentence:newSentence with:newPattern];
   
   // Fix the reps getting spelled as wraps
   pattern    = @"<(wrap(s)?)/([a-zA-Z]+)>";
   newPattern = @"<rep/Noun>";
-  newSentence = [self replacePattern:pattern inSentence:sentence with:newPattern];
-  
+  newSentence = [self replacePattern:pattern inSentence:newSentence with:newPattern];
   
   // Fix numbers that are spelled out
   NSArray *wordNumList = [NSArray arrayWithObjects:@"zero", @"one", @"two", @"three", @"four", @"five", @"six", @"seven", @"eight", @"nine", @"ten", @"eleven",@"twelve",@"thirteen",@"fourteen",@"fifteen",@"sixteen",@"seventeen",@"eighteen",@"nineteen",@"twenty", nil];
@@ -165,12 +161,10 @@
 
     newPattern = [NSString stringWithFormat:@"<%i/Number>", i];
     
-    newSentence = [self replacePattern:pattern inSentence:sentence with:newPattern];
-  
-    sentence = newSentence;
+    newSentence = [self replacePattern:pattern inSentence:newSentence with:newPattern];
   }
   
-  if (DEBUG_PATTERN) { NSLog(@"Corected Sentence: %@", newSentence); }
+  if (DEBUG_PATTERN) { NSLog(@"Corrected Sentence: %@", newSentence); }
   
   
 
@@ -179,51 +173,114 @@
 
 //_brain =[NSArray arrayWithObjects:_sets,_reps, _pounds, _laps, _miles, nil];
 
--(void)setFirstLevelPatternsFromSentence:(NSString *)sentence
+-(JNSSentenceState *)gatherInitialMetricsWithState:(JNSSentenceState *)sentenceState
 {
+  
   //Find Reps
   NSString *pattern = @"<[0-9]+/Number> <rep(s)?/Noun>";
-  NSArray *matchList = [NSArray arrayWithArray:[self findPattern:pattern inSentence:sentence]];
-  if (DEBUG_PATTERN) { NSLog(@"Rep");[self printMatches:matchList inSentence:sentence]; }
+  NSArray *matchList = [NSArray arrayWithArray:[self findPattern:pattern inSentence: [sentenceState _sentence]]];
   
-  for (NSNumber *item in [self getNumberListFromSentence:sentence matchList:matchList])
+  if ([matchList count] > 0)
   {
-    [_reps addObject:item];
+    if (DEBUG_PATTERN) { NSLog(@"Rep");[self printMatches:matchList inSentence:[sentenceState _sentence]]; }
+    
+    for (NSNumber *item in [self getNumberListFromSentence:[sentenceState _sentence] matchList:matchList])
+    {
+      [[sentenceState _reps] addObject:item];
+    }
+  }
+  
+  //Find sets
+  pattern = @"<[0-9]+/Number> <set(s)?/Noun>";
+  matchList = [NSArray arrayWithArray:[self findPattern:pattern inSentence:[sentenceState _sentence]]];
+  if ([matchList count] > 0)
+  {
+    if (DEBUG_PATTERN) { NSLog(@"Pound"); [self printMatches:matchList inSentence:[sentenceState _sentence]];}
+    
+    for (NSNumber *item in [self getNumberListFromSentence:[sentenceState _sentence] matchList:matchList])
+    {
+      [[sentenceState _sets] addObject:item];
+    }
   }
   
   //Find Pounds
   pattern = @"<[0-9]+/Number> <pound(s)?/Noun>";
-  matchList = [NSArray arrayWithArray:[self findPattern:pattern inSentence:sentence]];
-  if (DEBUG_PATTERN) { NSLog(@"Pound"); [self printMatches:matchList inSentence:sentence];}
-
-  for (NSNumber *item in [self getNumberListFromSentence:sentence matchList:matchList])
+  matchList = [NSArray arrayWithArray:[self findPattern:pattern inSentence:[sentenceState _sentence]]];
+  if ([matchList count] > 0)
   {
-    [_pounds addObject:item];
+    if (DEBUG_PATTERN) { NSLog(@"Pound"); [self printMatches:matchList inSentence:[sentenceState _sentence]];}
+
+    for (NSNumber *item in [self getNumberListFromSentence:[sentenceState _sentence] matchList:matchList])
+    {
+      [[sentenceState _pounds] addObject:item];
+    }
   }
   
   //Find Laps
   pattern = @"<[0-9]+/Number> <lap(s)?/Noun>";
-  matchList = [NSArray arrayWithArray:[self findPattern:pattern inSentence:sentence]];
-  if (DEBUG_PATTERN) { NSLog(@"Lap"); [self printMatches:matchList inSentence:sentence];}
+  matchList = [NSArray arrayWithArray:[self findPattern:pattern inSentence:[sentenceState _sentence]]];
+  if (DEBUG_PATTERN) { NSLog(@"Lap"); [self printMatches:matchList inSentence:[sentenceState _sentence]];}
 
-  for (NSNumber *item in [self getNumberListFromSentence:sentence matchList:matchList])
+  for (NSNumber *item in [self getNumberListFromSentence:[sentenceState _sentence] matchList:matchList])
   {
-    [_laps addObject:item];
+    [[sentenceState _laps] addObject:item];
   }
   
   //Find Miles
   pattern = @"<[0-9]+/Number> <mile(s)?/Noun>";
-  matchList = [NSArray arrayWithArray:[self findPattern:pattern inSentence:sentence]];
-  if (DEBUG_PATTERN) { NSLog(@"Mile"); [self printMatches:matchList inSentence:sentence];}
+  matchList = [NSArray arrayWithArray:[self findPattern:pattern inSentence:[sentenceState _sentence]]];
+  if (DEBUG_PATTERN) { NSLog(@"Mile"); [self printMatches:matchList inSentence:[sentenceState _sentence]];}
 
-  for (NSNumber *item in [self getNumberListFromSentence:sentence matchList:matchList])
+  for (NSNumber *item in [self getNumberListFromSentence:[sentenceState _sentence] matchList:matchList])
   {
-    [_miles addObject:item];
+    [[sentenceState _miles] addObject:item];
   }
+  return sentenceState;
 }
 
--(NSArray *)getNumberListFromSentence:(NSString *)sentence
-                            matchList:(NSArray  *)matchList
+
+-(JNSSentenceState *)gatherComplexMatrics:(JNSSentenceState *)sentenceState
+{
+  //Find Reps Complex Pattern
+  NSString *pattern  = @"<[0-9]+/Number> (<[a-zA-Z]+/Preposition>|<(x|time(s)?)/Noun>) <[0-9]+/Number> (<[a-zA-Z]+/Preposition>|<(x|time(s)?)/Noun>) <[0-9]+/Number>";
+  NSArray *matchList = [NSArray arrayWithArray:[self findPattern:pattern inSentence:[sentenceState _sentence]]];
+  if (DEBUG_PATTERN) { NSLog(@"Rep");[self printMatches:matchList inSentence:[sentenceState _sentence]]; }
+  
+  for (NSNumber *item in [self getNumberListFromRepsSection:[sentenceState _sentence] matchList:matchList])
+  {
+    [[sentenceState _reps] addObject:item];
+  }
+  
+  //Find Pounds Complex Pattern
+  pattern = @"<[0-9]+/Number> (<[a-zA-Z]+/Preposition>|<(x|time(s)?)/Noun>) <[0-9]+/Number> (<[a-zA-Z]+/Preposition>|<(x|time(s)?)/Noun>) <[0-9]+/Number>";
+  matchList = [NSArray arrayWithArray:[self findPattern:pattern inSentence:[sentenceState _sentence]]];
+  if (DEBUG_PATTERN) { NSLog(@"Pound"); [self printMatches:matchList inSentence:[sentenceState _sentence]];}
+  
+  for (NSNumber *item in [self getNumberListFromPoundsSection:[sentenceState _sentence] matchList:matchList])
+  {
+    [[sentenceState _pounds] addObject:item];
+  }
+  
+  //Find Set Complex Pattern
+  pattern = @"<[0-9]+/Number> (<[a-zA-Z]+/Preposition>|<(x|time(s)?)/Noun>) <[0-9]+/Number> (<[a-zA-Z]+/Preposition>|<(x|time(s)?)/Noun>) <[0-9]+/Number>";
+  matchList = [NSArray arrayWithArray:[self findPattern:pattern inSentence:[sentenceState _sentence]]];
+  if (DEBUG_PATTERN) { NSLog(@"Lap"); [self printMatches:matchList inSentence:[sentenceState _sentence]];}
+  
+  for (NSNumber *item in [self getNumberListFromSetsSection:[sentenceState _sentence] matchList:matchList])
+  {
+    [[sentenceState _sets] addObject:item];
+  }
+  
+  return sentenceState;
+}
+
+
+
+
+
+// get the number in Set
+-(NSArray *)getNumberListFromSetsSection:(NSString *)sentence
+                               matchList:(NSArray  *)matchList
 {
   NSMutableArray *results = [[NSMutableArray alloc] init];
   
@@ -233,12 +290,113 @@
     NSString *section = [sentence substringWithRange:r];
     
     
-    [results addObject:[NSNumber numberWithInteger:[self getIntegerValueFromSection:section]]];
+    [results addObject:[NSNumber numberWithInteger:[self getIntegerValueFromSetsSection:section]]];
+  }
+  return results;
+}
+// get the integer value from the Set
+-(NSUInteger)getIntegerValueFromSetsSection:(NSString *)section
+{
+  NSString *pattern    = @"<([0-9]+)/Number> (<[a-zA-Z]+/Preposition>|<(x|time(s)?)/Noun>) <[0-9]+/Number> (<[a-zA-Z]+/Preposition>|<(x|time(s)?)/Noun>) <[0-9]+/Number>";
+  NSString *newPattern = @"$1";
+  
+  NSString *value = [self replacePattern:pattern inSentence:section with:newPattern];
+  
+  //NSLog(@Integer Value:  %lu", (NSUInteger)[value integerValue]);
+  
+  return (NSInteger)[value integerValue];
+}
+
+// get the number in rep section
+-(NSArray *)getNumberListFromRepsSection:(NSString *)sentence
+                        matchList:(NSArray  *)matchList
+{
+  NSMutableArray *results = [[NSMutableArray alloc] init];
+  
+  for (NSTextCheckingResult *match in matchList)
+  {
+    NSRange r = [match range];
+    NSString *section = [sentence substringWithRange:r];
+    
+    
+    [results addObject:[NSNumber numberWithInteger:[self getIntegerValueFromRepsSection:section]]];
   }
   return results;
 }
 
+// get the integer value from the rep section
+-(NSUInteger)getIntegerValueFromRepsSection:(NSString *)section
+{
+  NSString *pattern    = @"<[0-9]+/Number> (<[a-zA-Z]+/Preposition>|<(x|time(s)?)/Noun>) <([0-9]+)/Number> (<[a-zA-Z]+/Preposition>|<(x|time(s)?)/Noun>) <[0-9]+/Number>";
+  NSString *newPattern = @"$4";
+  NSString *value = [self replacePattern:pattern inSentence:section with:newPattern];
+  
+  NSLog(@"Integer Value:  %i", (NSUInteger)[value integerValue]);
 
+  return (NSInteger)[value integerValue];
+}
+                        
+                        
+// get the number in pounds
+-(NSArray *)getNumberListFromPoundsSection:(NSString *)sentence
+                        matchList:(NSArray  *)matchList
+{
+  NSMutableArray *results = [[NSMutableArray alloc] init];
+  
+  for (NSTextCheckingResult *match in matchList)
+  {
+    NSRange r = [match range];
+    NSString *section = [sentence substringWithRange:r];
+    
+    
+    [results addObject:[NSNumber numberWithInteger:[self getIntegerValueFromPoundsSection:section]]];
+  }
+  return results;
+}
+                        
+// get the integer value from the pounds
+-(NSUInteger)getIntegerValueFromPoundsSection:(NSString *)section
+{
+  NSString *pattern    = @"<[0-9]+/Number> (<[a-zA-Z]+/Preposition>|<(x|time(s)?)/Noun>) <[0-9]+/Number> (<[a-zA-Z]+/Preposition>|<(x|time(s)?)/Noun>) <([0-9]+)/Number>";
+  NSString *newPattern = @"$7";
+  
+  NSString *value = [self replacePattern:pattern inSentence:section with:newPattern];
+  
+  NSLog(@"Integer Value:  %i", (NSUInteger)[value integerValue]);
+  
+  return (NSInteger)[value integerValue];
+}
+    
+                        
+                        
+
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+// get the number in front of  a number-noun set
+-(NSArray *)getNumberListFromSentence:(NSString *)sentence
+                            matchList:(NSArray  *)matchList
+  {
+    NSMutableArray *results = [[NSMutableArray alloc] init];
+    
+    for (NSTextCheckingResult *match in matchList)
+    {
+      NSRange r = [match range];
+      NSString *section = [sentence substringWithRange:r];
+      
+      
+      [results addObject:[NSNumber numberWithInteger:[self getIntegerValueFromSection:section]]];
+    }
+    return results;
+  }
+
+// get the integer value from the <number/tag> pair// secondary funtion for above results
 -(NSUInteger)getIntegerValueFromSection:(NSString *)section
 {
   NSString *pattern    = @"<([0-9]+)/Number> <[a-zA-Z]+/Noun>";
@@ -251,7 +409,7 @@
   return (NSInteger)[value integerValue];
 }
 
-
+// get word from a  num-noun pair
 -(NSString *)getStringValueFromSection:(NSString *)section
 {
   NSString *pattern    = @"<([a-zA-Z]+)/Number> <[a-zA-Z]+/Noun>";
@@ -278,7 +436,7 @@
 }
 
 
-
+// return a string of with the new template values
 -(NSString *)replacePattern:(NSString *)pattern
                  inSentence:(NSString *)sentence
                        with:(NSString *)myTemplate
@@ -295,7 +453,7 @@
 }
 
 
-
+// find pattern in sentence and return matches
 -(NSArray *)findPattern:(NSString *)pattern
             inSentence:(NSString *)sentence
 {
@@ -310,7 +468,7 @@
 }
 
 
-
+// find a pattern in a certain range and return matches
 -(NSArray *)findPattern:(NSString *)pattern
              inSentence:(NSString *)sentence
               withRange:(NSRange   )withRange

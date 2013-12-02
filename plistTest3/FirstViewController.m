@@ -121,6 +121,17 @@
         case 2:
             // Voice
             [self performSegueWithIdentifier:@"Voice" sender:nil];
+            if (currentTpId == 0)
+            {
+              NSLog(@"NOPE");
+              // Create a new training plan record
+              [self createNewTrainingPlan];
+              [self configureView];
+            }
+            else
+            {
+              NSLog(@"YUP");
+            }
             break;
         case 3:
             // Settings

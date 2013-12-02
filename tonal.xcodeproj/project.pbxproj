@@ -42,6 +42,10 @@
 		C9B4335A1844500200DCFFCB /* voiceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C9B433591844500200DCFFCB /* voiceViewController.m */; };
 		C9B433B018499E6100DCFFCB /* JNSTemplateMatch.m in Sources */ = {isa = PBXBuildFile; fileRef = C9B433AD18499E6100DCFFCB /* JNSTemplateMatch.m */; };
 		C9B433B118499E6100DCFFCB /* JNSActions.m in Sources */ = {isa = PBXBuildFile; fileRef = C9B433AF18499E6100DCFFCB /* JNSActions.m */; };
+		C9B433B4184C323B00DCFFCB /* JNSSentenceState.m in Sources */ = {isa = PBXBuildFile; fileRef = C9B433B3184C323B00DCFFCB /* JNSSentenceState.m */; };
+		C9B433B7184C37F700DCFFCB /* HistoryExerciseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C9B433B6184C37F700DCFFCB /* HistoryExerciseViewController.m */; };
+		C9B433BA184C3B0D00DCFFCB /* ExerciseRecord.m in Sources */ = {isa = PBXBuildFile; fileRef = C9B433B9184C3B0D00DCFFCB /* ExerciseRecord.m */; };
+		C9B433BD184C41C300DCFFCB /* HistorySetsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C9B433BC184C41C300DCFFCB /* HistorySetsViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -99,6 +103,14 @@
 		C9B433AD18499E6100DCFFCB /* JNSTemplateMatch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JNSTemplateMatch.m; sourceTree = "<group>"; };
 		C9B433AE18499E6100DCFFCB /* JNSActions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JNSActions.h; sourceTree = "<group>"; };
 		C9B433AF18499E6100DCFFCB /* JNSActions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JNSActions.m; sourceTree = "<group>"; };
+		C9B433B2184C323B00DCFFCB /* JNSSentenceState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JNSSentenceState.h; sourceTree = "<group>"; };
+		C9B433B3184C323B00DCFFCB /* JNSSentenceState.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JNSSentenceState.m; sourceTree = "<group>"; };
+		C9B433B5184C37F700DCFFCB /* HistoryExerciseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HistoryExerciseViewController.h; sourceTree = "<group>"; };
+		C9B433B6184C37F700DCFFCB /* HistoryExerciseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HistoryExerciseViewController.m; sourceTree = "<group>"; };
+		C9B433B8184C3B0D00DCFFCB /* ExerciseRecord.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExerciseRecord.h; sourceTree = "<group>"; };
+		C9B433B9184C3B0D00DCFFCB /* ExerciseRecord.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ExerciseRecord.m; sourceTree = "<group>"; };
+		C9B433BB184C41C300DCFFCB /* HistorySetsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HistorySetsViewController.h; sourceTree = "<group>"; };
+		C9B433BC184C41C300DCFFCB /* HistorySetsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HistorySetsViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -186,6 +198,10 @@
 				9E6300ED1818C0AC009827B1 /* ExerciseEntryViewController.m */,
 				9EF2E3721839A2CF0076B36B /* HistoryViewController.h */,
 				9EF2E3731839A2CF0076B36B /* HistoryViewController.m */,
+				C9B433B5184C37F700DCFFCB /* HistoryExerciseViewController.h */,
+				C9B433B6184C37F700DCFFCB /* HistoryExerciseViewController.m */,
+				C9B433BB184C41C300DCFFCB /* HistorySetsViewController.h */,
+				C9B433BC184C41C300DCFFCB /* HistorySetsViewController.m */,
 				9EF2E375183B0CBA0076B36B /* SettingsViewController.h */,
 				9EF2E376183B0CBA0076B36B /* SettingsViewController.m */,
 				C9B433581844500200DCFFCB /* voiceViewController.h */,
@@ -194,6 +210,8 @@
 				9E5E854218274A2F0064B44E /* FMDBDataAccess.m */,
 				C9B433AC18499E6100DCFFCB /* JNSTemplateMatch.h */,
 				C9B433AD18499E6100DCFFCB /* JNSTemplateMatch.m */,
+				C9B433B2184C323B00DCFFCB /* JNSSentenceState.h */,
+				C9B433B3184C323B00DCFFCB /* JNSSentenceState.m */,
 				C9B433AE18499E6100DCFFCB /* JNSActions.h */,
 				C9B433AF18499E6100DCFFCB /* JNSActions.m */,
 				9EA4D2A617EA76310067AFB7 /* Supporting Files */,
@@ -229,6 +247,8 @@
 				9EF2E36F18394B210076B36B /* SetRecord.m */,
 				9EF2E378183B12FF0076B36B /* TrainingPlanRecord.h */,
 				9EF2E379183B12FF0076B36B /* TrainingPlanRecord.m */,
+				C9B433B8184C3B0D00DCFFCB /* ExerciseRecord.h */,
+				C9B433B9184C3B0D00DCFFCB /* ExerciseRecord.m */,
 			);
 			name = DataObjects;
 			path = ..;
@@ -311,8 +331,10 @@
 				9EA4D2AC17EA76310067AFB7 /* main.m in Sources */,
 				9EA4D2B017EA76310067AFB7 /* AppDelegate.m in Sources */,
 				9EA4D2BC17EA76310067AFB7 /* MasterViewController.m in Sources */,
+				C9B433BA184C3B0D00DCFFCB /* ExerciseRecord.m in Sources */,
 				9E5E8538182200010064B44E /* FMDatabase.m in Sources */,
 				9EF2E37A183B12FF0076B36B /* TrainingPlanRecord.m in Sources */,
+				C9B433BD184C41C300DCFFCB /* HistorySetsViewController.m in Sources */,
 				9EF2E3741839A2CF0076B36B /* HistoryViewController.m in Sources */,
 				9E5E854318274A2F0064B44E /* FMDBDataAccess.m in Sources */,
 				9EF2E37018394B210076B36B /* SetRecord.m in Sources */,
@@ -325,7 +347,9 @@
 				9E5E8539182200010064B44E /* FMResultSet.m in Sources */,
 				9E6300EE1818C0AC009827B1 /* ExerciseEntryViewController.m in Sources */,
 				C9B4335A1844500200DCFFCB /* voiceViewController.m in Sources */,
+				C9B433B4184C323B00DCFFCB /* JNSSentenceState.m in Sources */,
 				C9B433B018499E6100DCFFCB /* JNSTemplateMatch.m in Sources */,
+				C9B433B7184C37F700DCFFCB /* HistoryExerciseViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

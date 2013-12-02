@@ -32,6 +32,8 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
+  self.navigationItem.title = @"Voice Input";
+
 }
 
 - (void)didReceiveMemoryWarning
@@ -76,7 +78,7 @@
     {
       [ self set_action: [[JNSActions alloc] initWithSentence:[inputExerciseField text]]];
       
-      [self set_addedRecord:[[ self _action ] doThis]];
+      [self set_addedRecord:[[self _action] _addedRecord]];
     }
     else{
       NSLog(@"nothing added nice try");
@@ -92,6 +94,14 @@
   }
   
 }
+
+- (IBAction)clearButtonPressed:(id)sender
+{
+
+  [inputExerciseField setText:@""];
+  
+}
+
 
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
 {

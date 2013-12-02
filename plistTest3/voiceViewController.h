@@ -21,5 +21,6 @@
 
 //-(IBAction)getInputSentence:(id)sender;
 - (IBAction)addSetButtonPressed:(id)sender;
+- (IBAction)clearButtonPressed:(id)sender;
 
 @end

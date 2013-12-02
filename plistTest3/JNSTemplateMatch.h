@@ -9,30 +9,33 @@
 #import <Foundation/Foundation.h>
 
 #define DEBUG_PATTERN 1
+
+@class JNSSentenceState;
  
 @interface JNSTemplateMatch : NSObject
 {
-  NSMutableArray *_sets;
-  NSMutableArray *_reps;
-  NSMutableArray *_pounds;
-  
-  NSMutableArray *_laps;
-  NSMutableArray *_miles;
+//  NSMutableArray *_sets;
+//  NSMutableArray *_reps;
+//  NSMutableArray *_pounds;
+//  
+//  NSMutableArray *_laps;
+//  NSMutableArray *_miles;
 }
 
-@property (nonatomic, copy) NSString * _sentence;
-@property (nonatomic, copy) NSArray * _brain;
+//@property (nonatomic, copy) NSString * _sentence;
+//@property (nonatomic, copy) NSArray * _brain;
 
+-(id)init;
 -(id)initDemoWithSentence:(NSUInteger)item;
--(id)initWithSentence:(NSString *)sentence;
 
--(NSUInteger)getExerciseID;
+//-(NSUInteger)getExerciseID;
 
 -(NSString *)createPOSWithSentence:(NSString *)sentence;
 
 -(NSString *)correctNumberTagInSentence:(NSString *)sentence;
 
--(void)setFirstLevelPatternsFromSentence:(NSString *)sentence;
+-(JNSSentenceState *)gatherInitialMetricsWithState:(JNSSentenceState *)sentenceState;
+-(JNSSentenceState *)gatherComplexMatrics:(JNSSentenceState *)sentenceState;
 
 -(NSArray *)findPattern:(NSString *)pattern
              inSentence:(NSString *)sentence;
